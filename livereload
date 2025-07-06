@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# watch code changes, trigger re-build, and kill process 
+while true; do
+    go build -o _build/linear-tui ./cmd/linear-tui && pkill -f '_build/linear-tui'
+    inotifywait -e attrib $(find . -name '*.go') || exit
+done

@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(go get:*)",
+      "mcp__linear__create_issue",
+      "mcp__linear__get_issue",
+      "Bash(./linear-tui)",
+      "mcp__linear__update_issue",
+      "mcp__linear__list_issue_statuses",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:studio.apollographql.com)",
+      "WebFetch(domain:developers.linear.app)",
+      "WebFetch(domain:linear.app)",
+      "mcp__linear__list_teams",
+      "mcp__linear__get_project",
+      "mcp__linear__list_projects"
+    ],
+    "deny": []
+  }
+}
