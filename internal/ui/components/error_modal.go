@@ -146,11 +146,11 @@ func (m *ErrorModal) View(styles *Styles) string {
 	messageStyle := lipgloss.NewStyle().
 		Foreground(lipgloss.Color("#CCCCCC")).
 		Width(contentWidth).
+		MaxWidth(contentWidth).
 		Align(lipgloss.Left)
 
-	// Word wrap the error message
-	wrappedMessage := wordWrap(m.ErrorMessage, contentWidth-4)
-	content.WriteString(messageStyle.Render(wrappedMessage))
+	// Use lipgloss to handle text wrapping
+	content.WriteString(messageStyle.Render(m.ErrorMessage))
 	content.WriteString("\n\n")
 
 	// Actions (buttons)

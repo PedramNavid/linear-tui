@@ -22,7 +22,9 @@
       "Bash(make:*)",
       "Bash(grep:*)",
       "WebFetch(domain:pkg.go.dev)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(rg:*)"
     ],
     "deny": []
   }

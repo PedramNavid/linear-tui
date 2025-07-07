@@ -514,4 +514,3 @@ func (l *Layout) renderLoadingView() string {
 
 	return loadingStyle.Render(content)
 }
-

@@ -5,11 +5,23 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/bubbles/viewport"
-	"github.com/charmbracelet/bubbletea"
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/linear-tui/linear-tui/internal/ui/mock"
 )
 
-// DetailPane represents the detail view pane
+const (
+	// Layout constants
+	borderWidth       = 2 // Border takes 1 char on each side
+	horizontalPadding = 4 // Padding: 2 chars on each side (from border style)
+	verticalPadding   = 2 // Padding: 1 line on top and bottom (from border style)
+
+	// Fixed element heights
+	titleHeight       = 2 // Title line + margin
+	placeholderHeight = 7 // Placeholder section lines
+	placeholderMargin = 2 // Spacing before placeholder section
+)
+
 type DetailPane struct {
 	Width   int
 	Height  int
@@ -23,9 +35,11 @@ type DetailPane struct {
 	// Viewport for scrolling
 	viewport viewport.Model
 	ready    bool // Whether viewport has been initialized
+
+	// Styles reference (set from parent)
+	styles *Styles
 }
 
-// NewDetailPane creates a new detail pane component
 func NewDetailPane() *DetailPane {
 	return &DetailPane{
 		Focused:  false,
@@ -33,24 +47,40 @@ func NewDetailPane() *DetailPane {
 	}
 }
 
-// Update handles keyboard input for the detail pane
+// getContentWidth returns the available width for content after accounting for borders and padding
+func (d *DetailPane) getContentWidth() int {
+	contentWidth := d.Width - borderWidth - horizontalPadding
+	if contentWidth < 1 {
+		return 1
+	}
+	return contentWidth
+}
+
+// getViewportHeight returns the available height for the viewport after accounting for fixed elements
+func (d *DetailPane) getViewportHeight() int {
+	// Account for: border, title, placeholder section with margin
+	totalFixedHeight := borderWidth + titleHeight + placeholderHeight + placeholderMargin
+	viewportHeight := d.Height - totalFixedHeight
+	if viewportHeight < 1 {
+		return 1
+	}
+	return viewportHeight
+}
+
 func (d *DetailPane) Update(msg tea.Msg) (*DetailPane, tea.Cmd) {
 	var cmd tea.Cmd
-	
+
 	switch msg.(type) {
 	case tea.WindowSizeMsg:
-		// Just update dimensions if viewport is already ready
-		if d.ready {
+		if d.ready && d.styles != nil {
 			d.updateViewportDimensions()
-			// Re-set content to reflow for new dimensions
-			d.viewport.SetContent(d.buildContent())
+			d.viewport.SetContent(d.buildContent(d.styles))
 		}
 	}
-	
-	// Update viewport if ready
+
 	if d.ready {
 		// Only process viewport updates when focused for keyboard events
-		if keyMsg, ok := msg.(tea.KeyMsg); ok {
+		if _, ok := msg.(tea.KeyMsg); ok {
 			if d.Focused {
 				d.viewport, cmd = d.viewport.Update(msg)
 			}
@@ -59,15 +89,40 @@ func (d *DetailPane) Update(msg tea.Msg) (*DetailPane, tea.Cmd) {
 			d.viewport, cmd = d.viewport.Update(msg)
 		}
 	}
-	
+
 	return d, cmd
 }
 
-// View renders the detail pane
 func (d *DetailPane) View(styles *Styles) string {
-	var content strings.Builder
+	// Store styles reference for use in other methods
+	d.styles = styles
 
-	// Title with scroll indicator and focus hint
+	// Build title section
+	titleSection := d.buildTitleSection(styles)
+
+	// Build viewport section
+	viewportSection := d.buildViewportSection(styles)
+
+	// Build placeholder section
+	placeholderSection := d.buildPlaceholderSection(styles)
+
+	// Compose sections using JoinVertical
+	content := lipgloss.JoinVertical(
+		lipgloss.Top,
+		titleSection,
+		viewportSection,
+		placeholderSection,
+	)
+
+	// Apply border and sizing
+	borderStyle := styles.GetBorderStyle(PaneDetail, d.getFocusedPane())
+	width := max(d.Width-borderWidth, 1)
+
+	return borderStyle.Width(width).Render(content)
+}
+
+// buildTitleSection builds the title section with scroll indicators
+func (d *DetailPane) buildTitleSection(styles *Styles) string {
 	title := "Details"
 	if d.ready && d.viewport.TotalLineCount() > d.viewport.Height {
 		scrollPercent := d.viewport.ScrollPercent()
@@ -79,144 +134,56 @@ func (d *DetailPane) View(styles *Styles) string {
 			title += fmt.Sprintf(" (%d%%)", int(scrollPercent*100))
 		}
 	}
-	
+
 	// Add focus indicator and keyboard hints
 	if d.Focused {
 		title += " [FOCUSED - j/k or ↑/↓: scroll]"
 	}
-	
-	
-	content.WriteString(styles.DetailTitle.Render(title))
-	content.WriteString("\n")
 
-	// Viewport content or loading state
+	return styles.DetailTitle.Width(d.getContentWidth()).Render(title)
+}
+
+// buildViewportSection builds the viewport content section
+func (d *DetailPane) buildViewportSection(styles *Styles) string {
 	if !d.ready {
-		content.WriteString(styles.Placeholder.Render("Loading..."))
-	} else {
-		// Get viewport content
-		viewportContent := d.viewport.View()
-		
-		// Apply styles line by line
-		viewportLines := strings.Split(viewportContent, "\n")
-		for i, line := range viewportLines {
-			if i > 0 {
-				content.WriteString("\n")
-			}
-			content.WriteString(styles.DetailContent.Render(line))
+		return styles.Placeholder.
+			Width(d.getContentWidth()).
+			Height(d.getViewportHeight()).
+			Render("Loading...")
+	}
+
+	// The viewport already contains styled content from buildContent
+	viewportContent := d.viewport.View()
+
+	// Ensure consistent height by padding if needed
+	lines := strings.Split(viewportContent, "\n")
+	for len(lines) < d.viewport.Height {
+		lines = append(lines, "")
+	}
+
+	return strings.Join(lines, "\n")
+}
+
+// buildPlaceholderSection builds the placeholder section for future features
+func (d *DetailPane) buildPlaceholderSection(styles *Styles) string {
+	placeholders := []string{
+		"--- Placeholders for future features ---",
+		"• Comments",
+		"• Sub-issues",
+		"• Attachments",
+		"• Activity log",
+	}
+
+	var result strings.Builder
+	for i, placeholder := range placeholders {
+		if i > 0 {
+			result.WriteString("\n")
 		}
-		
-		// Pad to fill the viewport height if needed
-		linesRendered := len(viewportLines)
-		for i := linesRendered; i < d.viewport.Height; i++ {
-			content.WriteString("\n")
-		}
+		result.WriteString(styles.Placeholder.Width(d.getContentWidth()).Render(placeholder))
 	}
 
-	// Add placeholders for future features (fixed at bottom)
-	content.WriteString("\n\n")
-	content.WriteString(styles.Placeholder.Render("--- Placeholders for future features ---"))
-	content.WriteString("\n")
-	content.WriteString(styles.Placeholder.Render("• Comments"))
-	content.WriteString("\n")
-	content.WriteString(styles.Placeholder.Render("• Sub-issues"))
-	content.WriteString("\n")
-	content.WriteString(styles.Placeholder.Render("• Attachments"))
-	content.WriteString("\n")
-	content.WriteString(styles.Placeholder.Render("• Activity log"))
-
-	// Apply border and sizing
-	borderStyle := styles.GetBorderStyle(PaneDetail, d.getFocusedPane())
-
-	// Ensure minimum dimensions (account for border + padding)
-	width := d.Width - 2 // 1 char padding on each side
-	if width < 1 {
-		width = 1
-	}
-
-	detailContent := borderStyle.
-		Width(width).
-		Render(content.String())
-
-	return detailContent
-}
-
-// renderTicketDetails renders the details of a selected ticket
-func (d *DetailPane) renderTicketDetails(content *strings.Builder, styles *Styles) {
-	ticket := d.SelectedTicket
-
-	// Title
-	titleText := styles.DetailContent.Render(fmt.Sprintf("Title: %s", ticket.Title))
-	content.WriteString(titleText)
-	content.WriteString("\n\n")
-
-	// Metadata
-	metaLines := []string{
-		fmt.Sprintf("ID: %s", ticket.ID),
-		fmt.Sprintf("Status: %s", ticket.Status),
-		fmt.Sprintf("Priority: %s", ticket.Priority),
-		fmt.Sprintf("Assignee: %s", ticket.Assignee),
-		fmt.Sprintf("Created: %s", ticket.CreatedAt.Format("2006-01-02 15:04")),
-	}
-
-	for _, line := range metaLines {
-		metaText := styles.DetailMeta.Render(line)
-		content.WriteString(metaText)
-		content.WriteString("\n")
-	}
-
-	content.WriteString("\n")
-
-	// Description
-	descTitle := styles.DetailContent.Render("Description:")
-	content.WriteString(descTitle)
-	content.WriteString("\n")
-
-	// Word wrap the description
-	wrappedDesc := wordWrap(ticket.Description, d.Width-8) // Account for padding
-	descContent := styles.DetailContent.Render(wrappedDesc)
-	content.WriteString(descContent)
-}
-
-// renderProjectDetails renders the details of a selected project
-func (d *DetailPane) renderProjectDetails(content *strings.Builder, styles *Styles) {
-	project := d.SelectedProject
-
-	// Title
-	titleText := styles.DetailContent.Render(fmt.Sprintf("Project: %s", project.Name))
-	content.WriteString(titleText)
-	content.WriteString("\n\n")
-
-	// Metadata
-	metaLines := []string{
-		fmt.Sprintf("ID: %s", project.ID),
-		fmt.Sprintf("Status: %s", project.Status),
-		fmt.Sprintf("Progress: %.0f%%", project.Progress*100),
-		fmt.Sprintf("Created: %s", project.CreatedAt.Format("2006-01-02 15:04")),
-	}
-
-	for _, line := range metaLines {
-		metaText := styles.DetailMeta.Render(line)
-		content.WriteString(metaText)
-		content.WriteString("\n")
-	}
-
-	content.WriteString("\n")
-
-	// Description
-	descTitle := styles.DetailContent.Render("Description:")
-	content.WriteString(descTitle)
-	content.WriteString("\n")
-
-	// Word wrap the description
-	wrappedDesc := wordWrap(project.Description, d.Width-8) // Account for padding
-	descContent := styles.DetailContent.Render(wrappedDesc)
-	content.WriteString(descContent)
-}
-
-// renderEmptyState renders the empty state when nothing is selected
-func (d *DetailPane) renderEmptyState(content *strings.Builder, styles *Styles) {
-	emptyText := styles.Placeholder.Render("Select an item to view details")
-	content.WriteString(emptyText)
+	// Add margin before placeholders
+	return "\n" + result.String()
 }
 
 // SetSelectedTicket sets the selected ticket for display
@@ -225,14 +192,14 @@ func (d *DetailPane) SetSelectedTicket(ticket *mock.MockTicket) {
 	if d.SelectedTicket != nil && ticket != nil && d.SelectedTicket.ID == ticket.ID {
 		return
 	}
-	
+
 	d.SelectedTicket = ticket
 	d.SelectedProject = nil
 	d.ViewType = "issues"
-	
+
 	// Update viewport content if ready
-	if d.ready {
-		d.viewport.SetContent(d.buildContent())
+	if d.ready && d.styles != nil {
+		d.viewport.SetContent(d.buildContent(d.styles))
 		d.viewport.GotoTop() // Reset scroll position for new content
 	}
 }
@@ -243,14 +210,14 @@ func (d *DetailPane) SetSelectedProject(project *mock.MockProject) {
 	if d.SelectedProject != nil && project != nil && d.SelectedProject.ID == project.ID {
 		return
 	}
-	
+
 	d.SelectedProject = project
 	d.SelectedTicket = nil
 	d.ViewType = "projects"
-	
+
 	// Update viewport content if ready
-	if d.ready {
-		d.viewport.SetContent(d.buildContent())
+	if d.ready && d.styles != nil {
+		d.viewport.SetContent(d.buildContent(d.styles))
 		d.viewport.GotoTop() // Reset scroll position for new content
 	}
 }
@@ -266,45 +233,35 @@ func (d *DetailPane) SetDimensions(width, height int) {
 	if d.Width == width && d.Height == height && d.ready {
 		return
 	}
-	
+
 	d.Width = width
 	d.Height = height
-	
+
 	// Initialize viewport if not ready and we have valid dimensions
 	if !d.ready && width > 0 && height > 0 {
-		// Calculate available height for viewport
-		// Account for: border (2), title (2), placeholder section (7 lines + 2 spacing)
-		availableHeight := height - 2 - 2 - 9
-		if availableHeight < 1 {
-			availableHeight = 1
-		}
-		
-		// Account for border and padding in width
-		availableWidth := width - 4
-		if availableWidth < 1 {
-			availableWidth = 1
-		}
-		
-		d.viewport = viewport.New(availableWidth, availableHeight)
+		d.viewport = viewport.New(d.getContentWidth(), d.getViewportHeight())
 		d.viewport.YPosition = 0
-		d.viewport.HighPerformanceRendering = false
 		d.viewport.MouseWheelEnabled = false // Disable mouse to avoid conflicts
-		
+
 		// Add j/k key bindings to the viewport
 		d.viewport.KeyMap.Down.SetKeys("down", "j")
 		d.viewport.KeyMap.Up.SetKeys("up", "k")
 		d.viewport.KeyMap.PageDown.SetKeys("pgdown", " ")
 		d.viewport.KeyMap.PageUp.SetKeys("pgup")
-		
+
 		d.ready = true
-		
-		// Set initial content
-		d.viewport.SetContent(d.buildContent())
+
+		// Set initial content if styles are available
+		if d.styles != nil {
+			d.viewport.SetContent(d.buildContent(d.styles))
+		}
 	} else if d.ready {
 		// Update viewport dimensions if already initialized
 		d.updateViewportDimensions()
 		// Re-set content to reflow for new width
-		d.viewport.SetContent(d.buildContent())
+		if d.styles != nil {
+			d.viewport.SetContent(d.buildContent(d.styles))
+		}
 	}
 }
 
@@ -316,68 +273,20 @@ func (d *DetailPane) getFocusedPane() Pane {
 	return PaneMain // Default if not focused
 }
 
-// buildContent builds the content string for the viewport
-func (d *DetailPane) buildContent() string {
+// buildContent builds the styled content string for the viewport
+func (d *DetailPane) buildContent(styles *Styles) string {
 	var content strings.Builder
-	
+
 	// Content based on what's selected
 	if d.ViewType == "issues" && d.SelectedTicket != nil {
-		d.renderTicketDetailsForViewport(&content)
+		d.renderTicketDetailsStyled(&content, styles)
 	} else if d.ViewType == "projects" && d.SelectedProject != nil {
-		d.renderProjectDetailsForViewport(&content)
+		d.renderProjectDetailsStyled(&content, styles)
 	} else {
-		content.WriteString("Select an item to view details")
+		content.WriteString(styles.Placeholder.Render("Select an item to view details"))
 	}
-	
-	
+
 	return content.String()
-}
-
-// renderTicketDetailsForViewport renders ticket details for the viewport (no styling)
-func (d *DetailPane) renderTicketDetailsForViewport(content *strings.Builder) {
-	ticket := d.SelectedTicket
-	
-	// Title
-	content.WriteString(fmt.Sprintf("Title: %s\n\n", ticket.Title))
-	
-	// Metadata
-	content.WriteString(fmt.Sprintf("ID: %s\n", ticket.ID))
-	content.WriteString(fmt.Sprintf("Status: %s\n", ticket.Status))
-	content.WriteString(fmt.Sprintf("Priority: %s\n", ticket.Priority))
-	content.WriteString(fmt.Sprintf("Assignee: %s\n", ticket.Assignee))
-	content.WriteString(fmt.Sprintf("Created: %s\n\n", ticket.CreatedAt.Format("2006-01-02 15:04")))
-	
-	// Description
-	content.WriteString("Description:\n")
-	wrapWidth := d.Width - 8 // Default if viewport not ready
-	if d.ready && d.viewport.Width > 0 {
-		wrapWidth = d.viewport.Width
-	}
-	wrappedDesc := wordWrap(ticket.Description, wrapWidth)
-	content.WriteString(wrappedDesc)
-}
-
-// renderProjectDetailsForViewport renders project details for the viewport (no styling)
-func (d *DetailPane) renderProjectDetailsForViewport(content *strings.Builder) {
-	project := d.SelectedProject
-	
-	// Title
-	content.WriteString(fmt.Sprintf("Project: %s\n\n", project.Name))
-	
-	// Metadata
-	content.WriteString(fmt.Sprintf("ID: %s\n", project.ID))
-	content.WriteString(fmt.Sprintf("Status: %s\n", project.Status))
-	content.WriteString(fmt.Sprintf("Progress: %.0f%%\n", project.Progress*100))
-	content.WriteString(fmt.Sprintf("Created: %s\n\n", project.CreatedAt.Format("2006-01-02 15:04")))
-	
-	// Description
-	content.WriteString("Description:\n")
-	wrapWidth := d.Width - 8 // Default if viewport not ready
-	if d.ready && d.viewport.Width > 0 {
-		wrapWidth = d.viewport.Width
-	}
-	wrappedDesc := wordWrap(project.Description, wrapWidth)
-	content.WriteString(wrappedDesc)
 }
 
 // updateViewportDimensions updates the viewport dimensions based on current pane size
@@ -385,56 +294,69 @@ func (d *DetailPane) updateViewportDimensions() {
 	if !d.ready {
 		return
 	}
-	
-	// Calculate available height for viewport
-	// Account for: border (2), title (2), placeholder section (7 lines + 2 spacing)
-	availableHeight := d.Height - 2 - 2 - 9
-	if availableHeight < 1 {
-		availableHeight = 1
-	}
-	
-	// Account for border and padding in width
-	availableWidth := d.Width - 4
-	if availableWidth < 1 {
-		availableWidth = 1
-	}
-	
-	d.viewport.Width = availableWidth
-	d.viewport.Height = availableHeight
+
+	d.viewport.Width = d.getContentWidth()
+	d.viewport.Height = d.getViewportHeight()
 }
 
-// wordWrap wraps text to fit within a given width
-func wordWrap(text string, width int) string {
-	if width <= 0 {
-		return text
-	}
+// renderTicketDetailsStyled renders ticket details with styles applied
+func (d *DetailPane) renderTicketDetailsStyled(content *strings.Builder, styles *Styles) {
+	ticket := d.SelectedTicket
+	contentWidth := d.getContentWidth()
 
-	words := strings.Fields(text)
-	if len(words) == 0 {
-		return text
-	}
+	// Title with proper width constraint
+	titleStyle := styles.DetailContent.Width(contentWidth).MaxWidth(contentWidth)
+	content.WriteString(titleStyle.Render(fmt.Sprintf("Title: %s", ticket.Title)))
+	content.WriteString("\n\n")
 
-	var result strings.Builder
-	var currentLine strings.Builder
+	// Metadata with proper styling
+	metaStyle := styles.DetailMeta.Width(contentWidth).MaxWidth(contentWidth)
+	content.WriteString(metaStyle.Render(fmt.Sprintf("ID: %s", ticket.ID)))
+	content.WriteString("\n")
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Status: %s", ticket.Status)))
+	content.WriteString("\n")
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Priority: %s", ticket.Priority)))
+	content.WriteString("\n")
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Assignee: %s", ticket.Assignee)))
+	content.WriteString("\n")
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Created: %s", ticket.CreatedAt.Format("2006-01-02 15:04"))))
+	content.WriteString("\n\n")
 
-	for _, word := range words {
-		// Check if adding this word would exceed the width
-		if currentLine.Len() > 0 && currentLine.Len()+len(word)+1 > width {
-			result.WriteString(currentLine.String())
-			result.WriteString("\n")
-			currentLine.Reset()
-		}
+	// Description with lipgloss width handling
+	content.WriteString(styles.DetailContent.Render("Description:"))
+	content.WriteString("\n")
 
-		if currentLine.Len() > 0 {
-			currentLine.WriteString(" ")
-		}
-		currentLine.WriteString(word)
-	}
+	// Use lipgloss to handle text wrapping
+	descStyle := styles.DetailContent.Width(contentWidth).MaxWidth(contentWidth)
+	content.WriteString(descStyle.Render(ticket.Description))
+}
 
-	// Add any remaining content
-	if currentLine.Len() > 0 {
-		result.WriteString(currentLine.String())
-	}
+// renderProjectDetailsStyled renders project details with styles applied
+func (d *DetailPane) renderProjectDetailsStyled(content *strings.Builder, styles *Styles) {
+	project := d.SelectedProject
+	contentWidth := d.getContentWidth()
 
-	return result.String()
+	// Title with proper width constraint
+	titleStyle := styles.DetailContent.Width(contentWidth).MaxWidth(contentWidth)
+	content.WriteString(titleStyle.Render(fmt.Sprintf("Project: %s", project.Name)))
+	content.WriteString("\n\n")
+
+	// Metadata with proper styling
+	metaStyle := styles.DetailMeta.Width(contentWidth).MaxWidth(contentWidth)
+	content.WriteString(metaStyle.Render(fmt.Sprintf("ID: %s", project.ID)))
+	content.WriteString("\n")
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Status: %s", project.Status)))
+	content.WriteString("\n")
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Progress: %.0f%%", project.Progress*100)))
+	content.WriteString("\n")
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Created: %s", project.CreatedAt.Format("2006-01-02 15:04"))))
+	content.WriteString("\n\n")
+
+	// Description with lipgloss width handling
+	content.WriteString(styles.DetailContent.Render("Description:"))
+	content.WriteString("\n")
+
+	// Use lipgloss to handle text wrapping
+	descStyle := styles.DetailContent.Width(contentWidth).MaxWidth(contentWidth)
+	content.WriteString(descStyle.Render(project.Description))
 }

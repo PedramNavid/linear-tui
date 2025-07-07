@@ -5,7 +5,6 @@ import (
 	"time"
 )
 
-// RateLimiter implements a simple token bucket rate limiter
 type RateLimiter struct {
 	mu         sync.Mutex
 	tokens     int
@@ -14,8 +13,6 @@ type RateLimiter struct {
 	lastRefill time.Time
 }
 
-// NewRateLimiter creates a new rate limiter
-// Linear API allows 1000 requests per hour
 func NewRateLimiter() *RateLimiter {
 	return &RateLimiter{
 		tokens:     1000,
@@ -25,12 +22,10 @@ func NewRateLimiter() *RateLimiter {
 	}
 }
 
-// Allow checks if a request is allowed and consumes a token if so
 func (r *RateLimiter) Allow() bool {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
-	// Refill tokens based on time elapsed
 	r.refill()
 
 	if r.tokens > 0 {
@@ -41,12 +36,10 @@ func (r *RateLimiter) Allow() bool {
 	return false
 }
 
-// refill adds tokens based on time elapsed
 func (r *RateLimiter) refill() {
 	now := time.Now()
 	elapsed := now.Sub(r.lastRefill)
 
-	// Calculate tokens to add (rate per hour converted to tokens per elapsed time)
 	tokensToAdd := int(elapsed.Hours() * float64(r.refillRate))
 
 	if tokensToAdd > 0 {
@@ -55,7 +48,6 @@ func (r *RateLimiter) refill() {
 	}
 }
 
-// TokensRemaining returns the number of tokens remaining
 func (r *RateLimiter) TokensRemaining() int {
 	r.mu.Lock()
 	defer r.mu.Unlock()
@@ -63,7 +55,6 @@ func (r *RateLimiter) TokensRemaining() int {
 	return r.tokens
 }
 
-// min returns the minimum of two integers
 func min(a, b int) int {
 	if a < b {
 		return a

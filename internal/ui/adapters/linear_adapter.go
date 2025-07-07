@@ -1,9 +1,9 @@
 package adapters
 
 import (
-	"time"
 	"github.com/linear-tui/linear-tui/internal/linear"
 	"github.com/linear-tui/linear-tui/internal/ui/mock"
+	"time"
 )
 
 // LinearAdapter converts between Linear API types and UI types
@@ -26,7 +26,7 @@ func (a *LinearAdapter) ConvertIssueToMockTicket(issue linear.Issue) mock.MockTi
 	}
 
 	return mock.MockTicket{
-		ID:          issue.ID,
+		ID:          issue.Identifier,
 		Title:       issue.Title,
 		Description: issue.Description,
 		Status:      issue.State.Name,
@@ -127,12 +127,12 @@ func parseProjectDate(dateStr *string) time.Time {
 	if dateStr == nil || *dateStr == "" {
 		return time.Time{} // Return zero time for nil/empty dates
 	}
-	
+
 	// Parse date-only format "2006-01-02"
 	parsed, err := time.Parse("2006-01-02", *dateStr)
 	if err != nil {
 		return time.Time{} // Return zero time if parsing fails
 	}
-	
+
 	return parsed
 }

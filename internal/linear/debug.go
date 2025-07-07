@@ -8,13 +8,11 @@ import (
 	"time"
 )
 
-// DebugLogger handles debug logging for the Linear client
 type DebugLogger struct {
 	logger  *log.Logger
 	enabled bool
 }
 
-// NewDebugLogger creates a new debug logger
 func NewDebugLogger() (*DebugLogger, error) {
 	debugLogger := &DebugLogger{
 		enabled: len(os.Getenv("DEBUG")) > 0,
@@ -32,7 +30,6 @@ func NewDebugLogger() (*DebugLogger, error) {
 	return debugLogger, nil
 }
 
-// LogRequest logs an API request
 func (d *DebugLogger) LogRequest(method, url, query string, variables map[string]interface{}) {
 	if !d.enabled || d.logger == nil {
 		return
@@ -42,7 +39,6 @@ func (d *DebugLogger) LogRequest(method, url, query string, variables map[string
 	d.logger.Printf("[%s] DEBUG: Linear API Request\n", timestamp)
 	d.logger.Printf("  Method: %s\n", method)
 	d.logger.Printf("  URL: %s\n", url)
-	// Query removed from logging for security/verbosity reasons
 
 	if len(variables) > 0 {
 		varsJSON, _ := json.MarshalIndent(variables, "  ", "  ")
@@ -51,7 +47,6 @@ func (d *DebugLogger) LogRequest(method, url, query string, variables map[string
 	d.logger.Println()
 }
 
-// LogResponse logs an API response
 func (d *DebugLogger) LogResponse(statusCode int, duration time.Duration, responseBody []byte, err error) {
 	if !d.enabled || d.logger == nil {
 		return
@@ -65,13 +60,11 @@ func (d *DebugLogger) LogResponse(statusCode int, duration time.Duration, respon
 	if err != nil {
 		d.logger.Printf("  Error: %v\n", err)
 	} else if len(responseBody) > 0 {
-		// Just log response size instead of full body
 		d.logger.Printf("  Response: %d bytes\n", len(responseBody))
 	}
 	d.logger.Println()
 }
 
-// LogError logs an error
 func (d *DebugLogger) LogError(context string, err error) {
 	if !d.enabled || d.logger == nil {
 		return
@@ -82,7 +75,6 @@ func (d *DebugLogger) LogError(context string, err error) {
 	d.logger.Println()
 }
 
-// LogInfo logs general information
 func (d *DebugLogger) LogInfo(format string, args ...interface{}) {
 	if !d.enabled || d.logger == nil {
 		return

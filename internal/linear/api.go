@@ -13,6 +13,7 @@ func (c *Client) GetIssues(ctx context.Context, teamID string, limit int) ([]Iss
 			issues(filter: { team: { id: { eq: $teamId } } }, first: $first) {
 				nodes {
 					id
+					identifier
 					title
 					description
 					priority
@@ -185,6 +186,7 @@ func (c *Client) CreateIssue(ctx context.Context, input CreateIssueInput) (*Issu
 				success
 				issue {
 					id
+					identifier
 					title
 					description
 					priority
@@ -272,6 +274,7 @@ func (c *Client) UpdateIssue(ctx context.Context, id string, input UpdateIssueIn
 				success
 				issue {
 					id
+					identifier
 					title
 					description
 					priority

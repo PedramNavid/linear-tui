@@ -1322,3 +1322,1004 @@
 
 [2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
 
+[2025-07-06 19:29:00] INFO: Linear API client initialized
+
+[2025-07-06 19:29:00] INFO: Starting API key validation
+
+[2025-07-06 19:29:00] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:29:01] DEBUG: Linear API Response
+  Status: 200
+  Duration: 439.668601ms
+  Response: 121 bytes
+
+[2025-07-06 19:29:01] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 19:29:01] INFO: Fetching all teams
+
+[2025-07-06 19:29:01] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:29:01] INFO: Attempt 1/4
+
+[2025-07-06 19:29:01] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:29:01] DEBUG: Linear API Response
+  Status: 200
+  Duration: 201.165883ms
+  Response: 285 bytes
+
+[2025-07-06 19:29:01] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:29:01] INFO: Successfully fetched 1 teams
+
+[2025-07-06 19:29:01] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:29:01] INFO: Attempt 1/4
+
+[2025-07-06 19:29:01] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:29:01] DEBUG: Linear API Response
+  Status: 200
+  Duration: 138.090374ms
+  Response: 407 bytes
+
+[2025-07-06 19:29:01] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:29:01] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 19:29:01] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:29:01] INFO: Attempt 1/4
+
+[2025-07-06 19:29:01] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 19:29:01] DEBUG: Linear API Response
+  Status: 200
+  Duration: 305.02314ms
+  Response: 68301 bytes
+
+[2025-07-06 19:29:01] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:29:01] INFO: Successfully fetched 22 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:29:01] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:29:01] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:29:01] INFO: Attempt 1/4
+
+[2025-07-06 19:29:01] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:29:01] DEBUG: Linear API Response
+  Status: 200
+  Duration: 155.276925ms
+  Response: 529 bytes
+
+[2025-07-06 19:29:01] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:29:01] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:41:21] INFO: Linear API client initialized
+
+[2025-07-06 19:41:21] INFO: Starting API key validation
+
+[2025-07-06 19:41:21] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:41:21] DEBUG: Linear API Response
+  Status: 200
+  Duration: 214.351359ms
+  Response: 121 bytes
+
+[2025-07-06 19:41:21] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 19:41:21] INFO: Fetching all teams
+
+[2025-07-06 19:41:21] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:41:21] INFO: Attempt 1/4
+
+[2025-07-06 19:41:21] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:41:21] DEBUG: Linear API Response
+  Status: 200
+  Duration: 231.894026ms
+  Response: 285 bytes
+
+[2025-07-06 19:41:21] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:41:21] INFO: Successfully fetched 1 teams
+
+[2025-07-06 19:41:21] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:41:21] INFO: Attempt 1/4
+
+[2025-07-06 19:41:21] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:41:21] DEBUG: Linear API Response
+  Status: 200
+  Duration: 188.939736ms
+  Response: 407 bytes
+
+[2025-07-06 19:41:21] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:41:21] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 19:41:21] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:41:21] INFO: Attempt 1/4
+
+[2025-07-06 19:41:21] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 19:41:21] DEBUG: Linear API Response
+  Status: 200
+  Duration: 167.690488ms
+  Response: 68301 bytes
+
+[2025-07-06 19:41:21] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:41:21] INFO: Successfully fetched 22 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:41:21] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:41:21] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:41:21] INFO: Attempt 1/4
+
+[2025-07-06 19:41:21] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:41:22] DEBUG: Linear API Response
+  Status: 200
+  Duration: 158.025154ms
+  Response: 529 bytes
+
+[2025-07-06 19:41:22] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:41:22] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:45:46] INFO: Linear API client initialized
+
+[2025-07-06 19:45:46] INFO: Starting API key validation
+
+[2025-07-06 19:45:46] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:45:47] DEBUG: Linear API Response
+  Status: 200
+  Duration: 211.835792ms
+  Response: 121 bytes
+
+[2025-07-06 19:45:47] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 19:45:47] INFO: Fetching all teams
+
+[2025-07-06 19:45:47] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:45:47] INFO: Attempt 1/4
+
+[2025-07-06 19:45:47] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:45:47] DEBUG: Linear API Response
+  Status: 200
+  Duration: 346.151994ms
+  Response: 285 bytes
+
+[2025-07-06 19:45:47] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:45:47] INFO: Successfully fetched 1 teams
+
+[2025-07-06 19:45:47] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:45:47] INFO: Attempt 1/4
+
+[2025-07-06 19:45:47] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:45:47] DEBUG: Linear API Response
+  Status: 200
+  Duration: 146.146596ms
+  Response: 407 bytes
+
+[2025-07-06 19:45:47] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:45:47] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 19:45:47] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:45:47] INFO: Attempt 1/4
+
+[2025-07-06 19:45:47] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 19:45:47] DEBUG: Linear API Response
+  Status: 200
+  Duration: 215.478813ms
+  Response: 68305 bytes
+
+[2025-07-06 19:45:47] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:45:47] INFO: Successfully fetched 22 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:45:47] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:45:47] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:45:47] INFO: Attempt 1/4
+
+[2025-07-06 19:45:47] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:45:47] DEBUG: Linear API Response
+  Status: 200
+  Duration: 165.442078ms
+  Response: 529 bytes
+
+[2025-07-06 19:45:47] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:45:47] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:47:37] INFO: Linear API client initialized
+
+[2025-07-06 19:47:37] INFO: Starting API key validation
+
+[2025-07-06 19:47:37] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:47:38] DEBUG: Linear API Response
+  Status: 200
+  Duration: 244.295551ms
+  Response: 121 bytes
+
+[2025-07-06 19:47:38] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 19:47:38] INFO: Fetching all teams
+
+[2025-07-06 19:47:38] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:47:38] INFO: Attempt 1/4
+
+[2025-07-06 19:47:38] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:47:38] DEBUG: Linear API Response
+  Status: 200
+  Duration: 146.938853ms
+  Response: 285 bytes
+
+[2025-07-06 19:47:38] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:47:38] INFO: Successfully fetched 1 teams
+
+[2025-07-06 19:47:38] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:47:38] INFO: Attempt 1/4
+
+[2025-07-06 19:47:38] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:47:38] DEBUG: Linear API Response
+  Status: 200
+  Duration: 148.563107ms
+  Response: 407 bytes
+
+[2025-07-06 19:47:38] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:47:38] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 19:47:38] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:47:38] INFO: Attempt 1/4
+
+[2025-07-06 19:47:38] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 19:47:38] DEBUG: Linear API Response
+  Status: 200
+  Duration: 178.956814ms
+  Response: 68789 bytes
+
+[2025-07-06 19:47:38] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:47:38] INFO: Successfully fetched 22 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:47:38] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 19:47:38] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 19:47:38] INFO: Attempt 1/4
+
+[2025-07-06 19:47:38] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 19:47:38] DEBUG: Linear API Response
+  Status: 200
+  Duration: 145.076156ms
+  Response: 529 bytes
+
+[2025-07-06 19:47:38] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 19:47:38] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:26:10] INFO: Linear API client initialized
+
+[2025-07-06 21:26:10] INFO: Starting API key validation
+
+[2025-07-06 21:26:10] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:26:10] DEBUG: Linear API Response
+  Status: 200
+  Duration: 233.566513ms
+  Response: 121 bytes
+
+[2025-07-06 21:26:10] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 21:26:10] INFO: Fetching all teams
+
+[2025-07-06 21:26:10] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:26:10] INFO: Attempt 1/4
+
+[2025-07-06 21:26:10] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:26:10] DEBUG: Linear API Response
+  Status: 200
+  Duration: 156.002247ms
+  Response: 285 bytes
+
+[2025-07-06 21:26:10] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:26:10] INFO: Successfully fetched 1 teams
+
+[2025-07-06 21:26:10] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:26:10] INFO: Attempt 1/4
+
+[2025-07-06 21:26:10] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:26:10] DEBUG: Linear API Response
+  Status: 200
+  Duration: 179.967212ms
+  Response: 407 bytes
+
+[2025-07-06 21:26:10] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:26:10] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 21:26:10] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:26:10] INFO: Attempt 1/4
+
+[2025-07-06 21:26:10] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 21:26:11] DEBUG: Linear API Response
+  Status: 200
+  Duration: 1.137655754s
+  Response: 68789 bytes
+
+[2025-07-06 21:26:11] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:26:11] INFO: Successfully fetched 22 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:26:11] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:26:11] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:26:11] INFO: Attempt 1/4
+
+[2025-07-06 21:26:11] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:26:12] DEBUG: Linear API Response
+  Status: 200
+  Duration: 198.796905ms
+  Response: 529 bytes
+
+[2025-07-06 21:26:12] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:26:12] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:29:07] INFO: Linear API client initialized
+
+[2025-07-06 21:29:07] INFO: Starting API key validation
+
+[2025-07-06 21:29:07] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:08] DEBUG: Linear API Response
+  Status: 200
+  Duration: 495.48229ms
+  Response: 121 bytes
+
+[2025-07-06 21:29:08] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 21:29:08] INFO: Fetching all teams
+
+[2025-07-06 21:29:08] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:08] INFO: Attempt 1/4
+
+[2025-07-06 21:29:08] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:08] DEBUG: Linear API Response
+  Status: 200
+  Duration: 635.533975ms
+  Response: 285 bytes
+
+[2025-07-06 21:29:08] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:08] INFO: Successfully fetched 1 teams
+
+[2025-07-06 21:29:08] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:08] INFO: Attempt 1/4
+
+[2025-07-06 21:29:08] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:08] DEBUG: Linear API Response
+  Status: 200
+  Duration: 159.939739ms
+  Response: 407 bytes
+
+[2025-07-06 21:29:08] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:08] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 21:29:08] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:08] INFO: Attempt 1/4
+
+[2025-07-06 21:29:08] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 21:29:09] DEBUG: Linear API Response
+  Status: 200
+  Duration: 283.039733ms
+  Response: 68789 bytes
+
+[2025-07-06 21:29:09] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:09] INFO: Successfully fetched 22 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:29:09] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:29:09] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:09] INFO: Attempt 1/4
+
+[2025-07-06 21:29:09] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:09] DEBUG: Linear API Response
+  Status: 200
+  Duration: 160.439195ms
+  Response: 529 bytes
+
+[2025-07-06 21:29:09] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:09] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:29:17] INFO: Linear API client initialized
+
+[2025-07-06 21:29:17] INFO: Starting API key validation
+
+[2025-07-06 21:29:17] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:18] DEBUG: Linear API Response
+  Status: 200
+  Duration: 221.961726ms
+  Response: 121 bytes
+
+[2025-07-06 21:29:18] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 21:29:18] INFO: Fetching all teams
+
+[2025-07-06 21:29:18] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:18] INFO: Attempt 1/4
+
+[2025-07-06 21:29:18] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:18] DEBUG: Linear API Response
+  Status: 200
+  Duration: 177.951775ms
+  Response: 285 bytes
+
+[2025-07-06 21:29:18] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:18] INFO: Successfully fetched 1 teams
+
+[2025-07-06 21:29:18] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:18] INFO: Attempt 1/4
+
+[2025-07-06 21:29:18] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:18] DEBUG: Linear API Response
+  Status: 200
+  Duration: 233.029439ms
+  Response: 407 bytes
+
+[2025-07-06 21:29:18] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:18] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 21:29:18] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:18] INFO: Attempt 1/4
+
+[2025-07-06 21:29:18] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 21:29:18] DEBUG: Linear API Response
+  Status: 200
+  Duration: 251.460667ms
+  Response: 68789 bytes
+
+[2025-07-06 21:29:18] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:18] INFO: Successfully fetched 22 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:29:18] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:29:18] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:18] INFO: Attempt 1/4
+
+[2025-07-06 21:29:18] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:18] DEBUG: Linear API Response
+  Status: 200
+  Duration: 147.367168ms
+  Response: 529 bytes
+
+[2025-07-06 21:29:18] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:18] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:29:47] INFO: Linear API client initialized
+
+[2025-07-06 21:29:47] INFO: Starting API key validation
+
+[2025-07-06 21:29:47] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:47] DEBUG: Linear API Response
+  Status: 200
+  Duration: 187.748689ms
+  Response: 121 bytes
+
+[2025-07-06 21:29:47] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 21:29:47] INFO: Fetching all teams
+
+[2025-07-06 21:29:47] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:47] INFO: Attempt 1/4
+
+[2025-07-06 21:29:47] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:47] DEBUG: Linear API Response
+  Status: 200
+  Duration: 148.610472ms
+  Response: 285 bytes
+
+[2025-07-06 21:29:47] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:47] INFO: Successfully fetched 1 teams
+
+[2025-07-06 21:29:47] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:47] INFO: Attempt 1/4
+
+[2025-07-06 21:29:47] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:48] DEBUG: Linear API Response
+  Status: 200
+  Duration: 164.653211ms
+  Response: 407 bytes
+
+[2025-07-06 21:29:48] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:48] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 21:29:48] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:48] INFO: Attempt 1/4
+
+[2025-07-06 21:29:48] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 21:29:48] DEBUG: Linear API Response
+  Status: 200
+  Duration: 176.909381ms
+  Response: 72652 bytes
+
+[2025-07-06 21:29:48] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:48] INFO: Successfully fetched 23 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:29:48] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 21:29:48] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 21:29:48] INFO: Attempt 1/4
+
+[2025-07-06 21:29:48] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 21:29:48] DEBUG: Linear API Response
+  Status: 200
+  Duration: 162.071477ms
+  Response: 516 bytes
+
+[2025-07-06 21:29:48] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 21:29:48] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 22:06:03] INFO: Linear API client initialized
+
+[2025-07-06 22:06:03] INFO: Starting API key validation
+
+[2025-07-06 22:06:03] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:06:03] DEBUG: Linear API Response
+  Status: 200
+  Duration: 247.996029ms
+  Response: 121 bytes
+
+[2025-07-06 22:06:03] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 22:06:03] INFO: Fetching all teams
+
+[2025-07-06 22:06:03] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:06:03] INFO: Attempt 1/4
+
+[2025-07-06 22:06:03] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:06:04] DEBUG: Linear API Response
+  Status: 200
+  Duration: 590.365981ms
+  Response: 285 bytes
+
+[2025-07-06 22:06:04] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:06:04] INFO: Successfully fetched 1 teams
+
+[2025-07-06 22:06:04] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:06:04] INFO: Attempt 1/4
+
+[2025-07-06 22:06:04] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:06:04] DEBUG: Linear API Response
+  Status: 200
+  Duration: 156.135193ms
+  Response: 407 bytes
+
+[2025-07-06 22:06:04] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:06:04] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 22:06:04] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:06:04] INFO: Attempt 1/4
+
+[2025-07-06 22:06:04] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 22:06:04] DEBUG: Linear API Response
+  Status: 200
+  Duration: 190.995896ms
+  Response: 72641 bytes
+
+[2025-07-06 22:06:04] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:06:04] INFO: Successfully fetched 23 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 22:06:04] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 22:06:04] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:06:04] INFO: Attempt 1/4
+
+[2025-07-06 22:06:04] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:06:04] DEBUG: Linear API Response
+  Status: 200
+  Duration: 183.476661ms
+  Response: 516 bytes
+
+[2025-07-06 22:06:04] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:06:04] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 22:12:13] INFO: Linear API client initialized
+
+[2025-07-06 22:12:13] INFO: Starting API key validation
+
+[2025-07-06 22:12:13] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:12:13] DEBUG: Linear API Response
+  Status: 200
+  Duration: 251.542899ms
+  Response: 121 bytes
+
+[2025-07-06 22:12:13] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 22:12:13] INFO: Fetching all teams
+
+[2025-07-06 22:12:13] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:12:13] INFO: Attempt 1/4
+
+[2025-07-06 22:12:13] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:12:13] DEBUG: Linear API Response
+  Status: 200
+  Duration: 143.54734ms
+  Response: 285 bytes
+
+[2025-07-06 22:12:13] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:12:13] INFO: Successfully fetched 1 teams
+
+[2025-07-06 22:12:13] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:12:13] INFO: Attempt 1/4
+
+[2025-07-06 22:12:13] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:12:13] DEBUG: Linear API Response
+  Status: 200
+  Duration: 143.319965ms
+  Response: 407 bytes
+
+[2025-07-06 22:12:13] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:12:13] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 22:12:13] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:12:13] INFO: Attempt 1/4
+
+[2025-07-06 22:12:13] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 22:12:14] DEBUG: Linear API Response
+  Status: 200
+  Duration: 187.010981ms
+  Response: 75008 bytes
+
+[2025-07-06 22:12:14] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:12:14] INFO: Successfully fetched 24 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 22:12:14] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 22:12:14] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:12:14] INFO: Attempt 1/4
+
+[2025-07-06 22:12:14] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:12:14] DEBUG: Linear API Response
+  Status: 200
+  Duration: 402.256546ms
+  Response: 516 bytes
+
+[2025-07-06 22:12:14] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:12:14] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 22:12:47] INFO: Linear API client initialized
+
+[2025-07-06 22:12:47] INFO: Starting API key validation
+
+[2025-07-06 22:12:47] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:12:47] DEBUG: Linear API Response
+  Status: 200
+  Duration: 223.388482ms
+  Response: 121 bytes
+
+[2025-07-06 22:12:47] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 22:12:47] INFO: Fetching all teams
+
+[2025-07-06 22:12:47] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:12:47] INFO: Attempt 1/4
+
+[2025-07-06 22:12:47] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:12:47] DEBUG: Linear API Response
+  Status: 200
+  Duration: 150.376014ms
+  Response: 285 bytes
+
+[2025-07-06 22:12:47] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:12:47] INFO: Successfully fetched 1 teams
+
+[2025-07-06 22:12:47] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:12:47] INFO: Attempt 1/4
+
+[2025-07-06 22:12:47] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:12:48] DEBUG: Linear API Response
+  Status: 200
+  Duration: 140.44988ms
+  Response: 407 bytes
+
+[2025-07-06 22:12:48] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:12:48] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 22:12:48] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:12:48] INFO: Attempt 1/4
+
+[2025-07-06 22:12:48] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 22:12:48] DEBUG: Linear API Response
+  Status: 200
+  Duration: 157.91534ms
+  Response: 75008 bytes
+
+[2025-07-06 22:12:48] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:12:48] INFO: Successfully fetched 24 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 22:12:48] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 22:12:48] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 22:12:48] INFO: Attempt 1/4
+
+[2025-07-06 22:12:48] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 22:12:48] DEBUG: Linear API Response
+  Status: 200
+  Duration: 139.570931ms
+  Response: 516 bytes
+
+[2025-07-06 22:12:48] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 22:12:48] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+

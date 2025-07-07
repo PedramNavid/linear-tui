@@ -9,6 +9,16 @@ import (
 	"github.com/linear-tui/linear-tui/internal/ui/mock"
 )
 
+const (
+	// Layout constants (matching DetailPane for consistency)
+	mainBorderWidth       = 2 // Border takes 1 char on each side
+	mainHorizontalPadding = 4 // Padding: 2 chars on each side (from border style)
+
+	// Fixed element heights
+	mainTitleHeight = 2 // Title line + margin
+	mainHelpHeight  = 1 // Help text line
+)
+
 // MainPane represents the main content area
 type MainPane struct {
 	ViewType     string // "issues" or "projects"
@@ -34,6 +44,26 @@ func NewMainPane() *MainPane {
 		Tickets:      []mock.MockTicket{},  // Start with empty data - will be loaded from Linear
 		Projects:     []mock.MockProject{}, // Start with empty data - will be loaded from Linear
 	}
+}
+
+// getContentWidth returns the available width for content after accounting for borders and padding
+func (m *MainPane) getContentWidth() int {
+	contentWidth := m.Width - mainBorderWidth - mainHorizontalPadding
+	if contentWidth < 1 {
+		return 1
+	}
+	return contentWidth
+}
+
+// getAvailableHeight returns the available height for list items after accounting for fixed elements
+func (m *MainPane) getAvailableHeight() int {
+	// Account for: border, title, help text
+	totalFixedHeight := mainBorderWidth + mainTitleHeight + mainHelpHeight
+	availableHeight := m.Height - totalFixedHeight
+	if availableHeight < 1 {
+		return 1
+	}
+	return availableHeight
 }
 
 // Update handles keyboard input for the main pane
@@ -62,147 +92,64 @@ func (m *MainPane) Update(msg tea.Msg) (*MainPane, tea.Cmd) {
 
 // View renders the main pane
 func (m *MainPane) View(styles *Styles) string {
-	var content strings.Builder
+	// Build sections
+	titleSection := m.buildTitleSection(styles)
+	listSection := m.buildListSection(styles)
+	helpSection := m.buildHelpSection(styles)
 
-	// Title
-	title := m.getTitle()
-	titleText := styles.MainTitle.Render(title)
-	content.WriteString(titleText)
-	content.WriteString("\n")
-
-	// Content based on view type
-	if m.ViewType == "issues" {
-		m.renderIssuesList(&content, styles)
-	} else {
-		m.renderProjectsList(&content, styles)
-	}
-
-	// Add help text
-	content.WriteString("\n")
-	helpText := styles.Placeholder.Render("↑/↓ to navigate • Enter to select")
-	content.WriteString(helpText)
+	// Compose sections using JoinVertical
+	content := lipgloss.JoinVertical(
+		lipgloss.Top,
+		titleSection,
+		listSection,
+		helpSection,
+	)
 
 	// Apply border and sizing
 	borderStyle := styles.GetBorderStyle(PaneMain, m.getFocusedPane())
+	width := max(m.Width-mainBorderWidth, 1)
 
-	// Ensure minimum dimensions (account for border + padding)
-	width := m.Width - 2 // 1 char padding on each side
-	if width < 1 {
-		width = 1
-	}
-
-	mainContent := borderStyle.
-		Width(width).
-		Render(content.String())
-
-	return mainContent
+	return borderStyle.Width(width).Render(content)
 }
 
-// renderIssuesList renders the list of issues with viewport logic
-func (m *MainPane) renderIssuesList(content *strings.Builder, styles *Styles) {
-	// Calculate available height for items (subtract title, help text, and borders)
-	availableHeight := m.Height - 6 // Account for title, help, borders (no vertical padding now)
-	if availableHeight < 1 {
-		availableHeight = 1
-	}
-
-	// Calculate available width for content (account for borders and padding)
-	availableWidth := m.Width - 6 // Account for borders (2) and padding (4)
-	if availableWidth < 10 {
-		availableWidth = 10 // Minimum width
-	}
-
-	// Calculate visible range around selected item
-	startIdx, endIdx := m.calculateVisibleRange(len(m.Tickets), availableHeight)
-
-	for i := startIdx; i <= endIdx && i < len(m.Tickets); i++ {
-		ticket := m.Tickets[i]
-		var style lipgloss.Style
-		if i == m.SelectedItem && m.Focused {
-			style = styles.ListSelected
-		} else {
-			style = styles.ListItem
-		}
-
-		// Format: [ID] Title - Status (Priority)
-		// Calculate lengths for truncation (without style codes)
-		statusText := fmt.Sprintf("(%s)", ticket.Priority)
-		metaText := fmt.Sprintf(" - %s %s", ticket.Status, statusText)
-		prefixText := fmt.Sprintf("[%s] ", ticket.ID)
-
-		// Calculate space available for title
-		reservedSpace := len(prefixText) + len(metaText)
-		titleSpace := availableWidth - reservedSpace
-
-		// Truncate title if necessary
-		title := ticket.Title
-		var finalMetaText string
-
-		if len(title) > titleSpace && titleSpace > 3 {
-			title = title[:titleSpace-3] + "..."
-			finalMetaText = metaText
-		} else if titleSpace <= 3 {
-			// Very limited space, just show prefix and truncated title
-			if availableWidth > len(prefixText)+3 {
-				title = title[:availableWidth-len(prefixText)-3] + "..."
-				finalMetaText = "" // Remove metadata if no space
-			} else {
-				title = "..."
-				finalMetaText = ""
-			}
-		} else {
-			finalMetaText = metaText
-		}
-
-		// Build the final text with proper styling for priority
-		var itemText string
-		if finalMetaText != "" {
-			// Apply priority styling to just the priority part
-			priorityStyled := styles.GetStatusStyle(ticket.Priority).Render(ticket.Priority)
-			itemText = fmt.Sprintf("%s%s - %s (%s)", prefixText, title, ticket.Status, priorityStyled)
-		} else {
-			itemText = prefixText + title
-		}
-
-		renderedItem := style.Render(itemText)
-		content.WriteString(renderedItem)
-		content.WriteString("\n")
-	}
+// buildTitleSection builds the title section
+func (m *MainPane) buildTitleSection(styles *Styles) string {
+	title := m.getTitle()
+	return styles.MainTitle.Width(m.getContentWidth()).Render(title)
 }
 
-// renderProjectsList renders the list of projects with viewport logic
-func (m *MainPane) renderProjectsList(content *strings.Builder, styles *Styles) {
-	// Calculate available height for items (subtract title, help text, and borders)
-	availableHeight := m.Height - 6 // Account for title, help, borders (no vertical padding now)
-	if availableHeight < 1 {
-		availableHeight = 1
+// buildListSection builds the list content section
+func (m *MainPane) buildListSection(styles *Styles) string {
+	var content strings.Builder
+
+	if m.ViewType == "issues" {
+		m.renderIssuesListStyled(&content, styles)
+	} else {
+		m.renderProjectsListStyled(&content, styles)
 	}
 
-	// Calculate visible range around selected item
-	startIdx, endIdx := m.calculateVisibleRange(len(m.Projects), availableHeight)
+	// Ensure consistent height by padding if needed
+	lines := strings.Split(content.String(), "\n")
+	availableHeight := m.getAvailableHeight()
 
-	for i := startIdx; i <= endIdx && i < len(m.Projects); i++ {
-		project := m.Projects[i]
-		var style lipgloss.Style
-		if i == m.SelectedItem && m.Focused {
-			style = styles.ListSelected
-		} else {
-			style = styles.ListItem
-		}
-
-		// Format: [ID] Name - Status (Progress%)
-		progressText := fmt.Sprintf("%.0f%%", project.Progress*100)
-		itemText := fmt.Sprintf("[%s] %s - %s (%s)",
-			project.ID,
-			project.Name,
-			project.Status,
-			progressText)
-
-		renderedItem := style.Render(itemText)
-		content.WriteString(renderedItem)
-		content.WriteString("\n")
+	// Remove empty last line if present
+	if len(lines) > 0 && lines[len(lines)-1] == "" {
+		lines = lines[:len(lines)-1]
 	}
+
+	// Pad to fill available height
+	for len(lines) < availableHeight {
+		lines = append(lines, "")
+	}
+
+	return strings.Join(lines, "\n")
 }
+
+// buildHelpSection builds the help text section
+func (m *MainPane) buildHelpSection(styles *Styles) string {
+	return styles.Placeholder.Width(m.getContentWidth()).Render("↑/↓ to navigate • Enter to select")
+}
+
 
 // getTitle returns the title for the current view
 func (m *MainPane) getTitle() string {
@@ -312,4 +259,107 @@ func (m *MainPane) calculateVisibleRange(totalItems, availableHeight int) (int, 
 	}
 
 	return m.ViewportStart, endIdx
+}
+
+// renderIssuesListStyled renders the list of issues with pre-applied styles
+func (m *MainPane) renderIssuesListStyled(content *strings.Builder, styles *Styles) {
+	availableHeight := m.getAvailableHeight()
+	contentWidth := m.getContentWidth()
+
+	// Calculate visible range
+	startIdx, endIdx := m.calculateVisibleRange(len(m.Tickets), availableHeight)
+
+	for i := startIdx; i <= endIdx && i < len(m.Tickets); i++ {
+		if i > startIdx {
+			content.WriteString("\n")
+		}
+
+		ticket := m.Tickets[i]
+		isSelected := i == m.SelectedItem && m.Focused
+
+		// Build the item text
+		itemText := m.formatTicketItem(ticket, contentWidth, styles)
+
+		// Apply selection style
+		var style lipgloss.Style
+		if isSelected {
+			style = styles.ListSelected.Width(contentWidth).MaxWidth(contentWidth)
+		} else {
+			style = styles.ListItem.Width(contentWidth).MaxWidth(contentWidth)
+		}
+
+		content.WriteString(style.Render(itemText))
+	}
+}
+
+// formatTicketItem formats a ticket item with proper styling
+func (m *MainPane) formatTicketItem(ticket mock.MockTicket, width int, styles *Styles) string {
+	// Build components
+	id := fmt.Sprintf("[%s]", ticket.ID)
+	status := ticket.Status
+	priority := fmt.Sprintf("(%s)", ticket.Priority)
+
+	// Apply priority color
+	priorityStyled := styles.GetStatusStyle(ticket.Priority).Render(priority)
+
+	// Calculate available space for title
+	metadataLen := len(id) + 1 + len(status) + 1 + len(priority) + 3 // spaces and separators
+	titleSpace := width - metadataLen
+
+	// Use lipgloss to handle title truncation
+	titleStyle := lipgloss.NewStyle().MaxWidth(titleSpace)
+	titleRendered := titleStyle.Render(ticket.Title)
+
+	// Build final string
+	return fmt.Sprintf("%s %s - %s %s", id, titleRendered, status, priorityStyled)
+}
+
+// renderProjectsListStyled renders the list of projects with pre-applied styles
+func (m *MainPane) renderProjectsListStyled(content *strings.Builder, styles *Styles) {
+	availableHeight := m.getAvailableHeight()
+	contentWidth := m.getContentWidth()
+
+	// Calculate visible range
+	startIdx, endIdx := m.calculateVisibleRange(len(m.Projects), availableHeight)
+
+	for i := startIdx; i <= endIdx && i < len(m.Projects); i++ {
+		if i > startIdx {
+			content.WriteString("\n")
+		}
+
+		project := m.Projects[i]
+		isSelected := i == m.SelectedItem && m.Focused
+
+		// Build the item text
+		itemText := m.formatProjectItem(project, contentWidth)
+
+		// Apply selection style
+		var style lipgloss.Style
+		if isSelected {
+			style = styles.ListSelected.Width(contentWidth).MaxWidth(contentWidth)
+		} else {
+			style = styles.ListItem.Width(contentWidth).MaxWidth(contentWidth)
+		}
+
+		content.WriteString(style.Render(itemText))
+	}
+}
+
+// formatProjectItem formats a project item
+func (m *MainPane) formatProjectItem(project mock.MockProject, width int) string {
+	// Build components
+	id := fmt.Sprintf("[%s]", project.ID)
+	status := project.Status
+	progress := fmt.Sprintf("(%.0f%%)", project.Progress*100)
+
+	// Calculate available space for name
+	metadataLen := len(id) + 1 + len(status) + 1 + len(progress) + 3 // spaces and separators
+	nameSpace := width - metadataLen
+
+	// Use lipgloss to handle name truncation
+	nameStyle := lipgloss.NewStyle().MaxWidth(nameSpace)
+	nameRendered := nameStyle.Render(project.Name)
+
+	// Build final string
+	return fmt.Sprintf("%s %s - %s %s", id, nameRendered, status, progress)
 }
