@@ -14,7 +14,15 @@
       "WebFetch(domain:linear.app)",
       "mcp__linear__list_teams",
       "mcp__linear__get_project",
-      "mcp__linear__list_projects"
+      "mcp__linear__list_projects",
+      "Bash(mv:*)",
+      "Bash(go:*)",
+      "Bash(find:*)",
+      "Bash(rm:*)",
+      "Bash(make:*)",
+      "Bash(grep:*)",
+      "WebFetch(domain:pkg.go.dev)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

@@ -2,6 +2,9 @@
 
 # watch code changes, trigger re-build, and kill process 
 while true; do
-    go build -o _build/linear-tui ./cmd/linear-tui && pkill -f '_build/linear-tui'
-    inotifywait -e attrib $(find . -name '*.go') || exit
+    go build -o _build/linear-tui ./cmd/linear-tui
+    if [ $? -eq 0 ]; then
+        pkill -f '_build/linear-tui'
+    fi
+    inotifywait -r -e modify,create,delete --include='\.go$' . || exit
 done

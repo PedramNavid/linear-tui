@@ -11,10 +11,9 @@ import (
 func main() {
 	// Create the model
 	model := ui.NewModel()
-	
-	// Create the program without alt screen to ensure top alignment
-	p := tea.NewProgram(model)
-	
+
+	p := tea.NewProgram(model, tea.WithAltScreen())
+
 	// Run the program
 	if _, err := p.Run(); err != nil {
 		log.Fatal(err)

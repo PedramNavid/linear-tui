@@ -8,7 +8,7 @@ import (
 type Pane int
 
 const (
-	SidebarPane Pane = iota
+	MenuPane Pane = iota
 	MainPane
 	DetailPane
 )
@@ -18,28 +18,28 @@ type Styles struct {
 	// Pane styles
 	ActiveBorder   lipgloss.Style
 	InactiveBorder lipgloss.Style
-	
-	// Sidebar styles
-	SidebarTitle    lipgloss.Style
-	SidebarItem     lipgloss.Style
-	SidebarSelected lipgloss.Style
-	
+
+	// Menu bar styles
+	MenuTitle    lipgloss.Style
+	MenuItem     lipgloss.Style
+	MenuSelected lipgloss.Style
+
 	// Main pane styles
-	MainTitle     lipgloss.Style
-	ListItem      lipgloss.Style
-	ListSelected  lipgloss.Style
-	
+	MainTitle    lipgloss.Style
+	ListItem     lipgloss.Style
+	ListSelected lipgloss.Style
+
 	// Detail pane styles
 	DetailTitle   lipgloss.Style
 	DetailContent lipgloss.Style
 	DetailMeta    lipgloss.Style
-	
+
 	// General styles
 	StatusHigh   lipgloss.Style
 	StatusMedium lipgloss.Style
 	StatusLow    lipgloss.Style
 	StatusDone   lipgloss.Style
-	
+
 	// Placeholder styles
 	Placeholder lipgloss.Style
 }
@@ -52,30 +52,30 @@ func NewStyles() *Styles {
 			Border(lipgloss.RoundedBorder()).
 			BorderForeground(lipgloss.Color("#874BFD")).
 			Padding(1, 2),
-		
+
 		InactiveBorder: lipgloss.NewStyle().
 			Border(lipgloss.RoundedBorder()).
 			BorderForeground(lipgloss.Color("#626262")).
 			Padding(1, 2),
-		
-		// Sidebar styles
-		SidebarTitle: lipgloss.NewStyle().
+
+		// Menu bar styles
+		MenuTitle: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
 			Background(lipgloss.Color("#7D56F4")).
 			Padding(0, 1).
 			MarginBottom(1).
 			Bold(true),
-		
-		SidebarItem: lipgloss.NewStyle().
+
+		MenuItem: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#626262")).
 			Padding(0, 1),
-		
-		SidebarSelected: lipgloss.NewStyle().
+
+		MenuSelected: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
 			Background(lipgloss.Color("#874BFD")).
 			Padding(0, 1).
 			Bold(true),
-		
+
 		// Main pane styles
 		MainTitle: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
@@ -83,17 +83,17 @@ func NewStyles() *Styles {
 			Padding(0, 1).
 			MarginBottom(1).
 			Bold(true),
-		
+
 		ListItem: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#626262")).
 			Padding(0, 1),
-		
+
 		ListSelected: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
 			Background(lipgloss.Color("#874BFD")).
 			Padding(0, 1).
 			Bold(true),
-		
+
 		// Detail pane styles
 		DetailTitle: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
@@ -101,33 +101,33 @@ func NewStyles() *Styles {
 			Padding(0, 1).
 			MarginBottom(1).
 			Bold(true),
-		
+
 		DetailContent: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
 			Padding(0, 1),
-		
+
 		DetailMeta: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#626262")).
 			Padding(0, 1).
 			Italic(true),
-		
+
 		// Status styles
 		StatusHigh: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FF0000")).
 			Bold(true),
-		
+
 		StatusMedium: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FFA500")).
 			Bold(true),
-		
+
 		StatusLow: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#00FF00")).
 			Bold(true),
-		
+
 		StatusDone: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#808080")).
 			Strikethrough(true),
-		
+
 		// Placeholder styles
 		Placeholder: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#626262")).
@@ -142,7 +142,6 @@ func (s *Styles) GetBorderStyle(pane Pane, focusedPane Pane) lipgloss.Style {
 	}
 	return s.InactiveBorder
 }
-
 
 // GetStatusStyle returns the appropriate style for a status
 func (s *Styles) GetStatusStyle(status string) lipgloss.Style {
@@ -179,20 +178,20 @@ func CalculateLayout(terminalWidth, terminalHeight int) LayoutDimensions {
 	if terminalHeight < 24 {
 		terminalHeight = 24
 	}
-	
+
 	// Calculate sidebar dimensions (20% of width, full height)
 	sidebarWidth := max(20, terminalWidth/5)
 	sidebarHeight := terminalHeight
-	
+
 	// Calculate main and detail pane dimensions
 	remainingWidth := terminalWidth - sidebarWidth
 	mainWidth := remainingWidth
 	detailWidth := remainingWidth
-	
+
 	// Main pane gets 60% of height, detail gets 40%
 	mainHeight := max(10, (terminalHeight*3)/5)
 	detailHeight := terminalHeight - mainHeight
-	
+
 	return LayoutDimensions{
 		SidebarWidth:  sidebarWidth,
 		SidebarHeight: sidebarHeight,

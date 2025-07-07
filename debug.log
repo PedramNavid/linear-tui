@@ -1,0 +1,1324 @@
+[2025-07-06 13:01:48] INFO: API key provided directly to NewClient
+
+[2025-07-06 13:01:48] INFO: Linear API client initialized
+
+[2025-07-06 13:01:48] INFO: Starting API key validation
+
+[2025-07-06 13:01:48] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:01:49] DEBUG: Linear API Response
+  Status: 200
+  Duration: 309.694146ms
+  Response: 121 bytes
+
+[2025-07-06 13:01:49] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 13:01:49] INFO: Fetching all teams
+
+[2025-07-06 13:01:49] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:01:49] INFO: Attempt 1/4
+
+[2025-07-06 13:01:49] INFO: Rate limit check passed
+
+[2025-07-06 13:01:49] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:01:49] DEBUG: Linear API Response
+  Status: 200
+  Duration: 118.920755ms
+  Response: 285 bytes
+
+[2025-07-06 13:01:49] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:01:49] INFO: Successfully fetched 1 teams
+
+[2025-07-06 13:01:49] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:01:49] INFO: Attempt 1/4
+
+[2025-07-06 13:01:49] INFO: Rate limit check passed
+
+[2025-07-06 13:01:49] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:01:49] DEBUG: Linear API Response
+  Status: 200
+  Duration: 123.640773ms
+  Response: 407 bytes
+
+[2025-07-06 13:01:49] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:01:49] INFO: DetailPane: SetDimensions called - width: 61, height: 35, ready: false
+
+[2025-07-06 13:01:49] INFO: DetailPane: Viewport initialized in SetDimensions - width: 57, height: 22
+
+[2025-07-06 13:01:49] INFO: DetailPane: SetDimensions called - width: 61, height: 35, ready: true
+
+[2025-07-06 13:01:49] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 13:01:49] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:01:49] INFO: Attempt 1/4
+
+[2025-07-06 13:01:49] INFO: Rate limit check passed
+
+[2025-07-06 13:01:49] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 13:01:50] DEBUG: Linear API Response
+  Status: 200
+  Duration: 687.860386ms
+  Response: 64589 bytes
+
+[2025-07-06 13:01:50] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:01:50] INFO: Successfully fetched 21 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:01:50] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:01:50] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:01:50] INFO: Attempt 1/4
+
+[2025-07-06 13:01:50] INFO: Rate limit check passed
+
+[2025-07-06 13:01:50] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:01:57] DEBUG: Linear API Response
+  Status: 200
+  Duration: 7.226805699s
+  Response: 529 bytes
+
+[2025-07-06 13:01:57] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:01:57] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:01:57] INFO: DetailPane: SetDimensions called - width: 61, height: 35, ready: true
+
+[2025-07-06 13:02:04] INFO: DetailPane: Keyboard event while focused - key: tab, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:04] INFO: DetailPane: SetDimensions called - width: 61, height: 35, ready: true
+
+[2025-07-06 13:02:05] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:05] INFO: DetailPane: SetDimensions called - width: 61, height: 35, ready: true
+
+[2025-07-06 13:02:06] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:06] INFO: DetailPane: SetDimensions called - width: 61, height: 35, ready: true
+
+[2025-07-06 13:02:35] INFO: DetailPane: SetDimensions called - width: 61, height: 35, ready: true
+
+[2025-07-06 13:02:49] INFO: API key provided directly to NewClient
+
+[2025-07-06 13:02:49] INFO: Linear API client initialized
+
+[2025-07-06 13:02:49] INFO: Starting API key validation
+
+[2025-07-06 13:02:49] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:02:49] DEBUG: Linear API Response
+  Status: 200
+  Duration: 324.816445ms
+  Response: 121 bytes
+
+[2025-07-06 13:02:49] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 13:02:49] INFO: Fetching all teams
+
+[2025-07-06 13:02:49] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:02:49] INFO: Attempt 1/4
+
+[2025-07-06 13:02:49] INFO: Rate limit check passed
+
+[2025-07-06 13:02:49] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:02:50] DEBUG: Linear API Response
+  Status: 200
+  Duration: 149.328184ms
+  Response: 285 bytes
+
+[2025-07-06 13:02:50] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:02:50] INFO: Successfully fetched 1 teams
+
+[2025-07-06 13:02:50] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:02:50] INFO: Attempt 1/4
+
+[2025-07-06 13:02:50] INFO: Rate limit check passed
+
+[2025-07-06 13:02:50] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:02:50] DEBUG: Linear API Response
+  Status: 200
+  Duration: 157.119371ms
+  Response: 407 bytes
+
+[2025-07-06 13:02:50] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:02:50] INFO: DetailPane: SetDimensions called - width: 61, height: 35, ready: false
+
+[2025-07-06 13:02:50] INFO: DetailPane: Viewport initialized in SetDimensions - width: 57, height: 22
+
+[2025-07-06 13:02:50] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 13:02:50] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:02:50] INFO: Attempt 1/4
+
+[2025-07-06 13:02:50] INFO: Rate limit check passed
+
+[2025-07-06 13:02:50] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 13:02:50] DEBUG: Linear API Response
+  Status: 200
+  Duration: 231.578492ms
+  Response: 64589 bytes
+
+[2025-07-06 13:02:50] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:02:50] INFO: Successfully fetched 21 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:02:50] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:02:50] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:02:50] INFO: Attempt 1/4
+
+[2025-07-06 13:02:50] INFO: Rate limit check passed
+
+[2025-07-06 13:02:50] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:02:50] DEBUG: Linear API Response
+  Status: 200
+  Duration: 259.095058ms
+  Response: 529 bytes
+
+[2025-07-06 13:02:50] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:02:50] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:02:51] INFO: DetailPane: Keyboard event while focused - key: tab, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:51] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:51] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:51] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:51] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:51] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:51] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:51] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:51] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:52] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:52] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:52] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:52] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:52] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:52] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:52] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:52] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:52] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:52] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:52] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:52] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:53] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:53] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:53] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:53] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:53] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:53] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:53] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:53] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:53] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:53] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:53] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:53] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:53] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:53] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:53] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:55] INFO: API key provided directly to NewClient
+
+[2025-07-06 13:02:55] INFO: Linear API client initialized
+
+[2025-07-06 13:02:55] INFO: Starting API key validation
+
+[2025-07-06 13:02:55] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:02:55] DEBUG: Linear API Response
+  Status: 200
+  Duration: 212.935199ms
+  Response: 121 bytes
+
+[2025-07-06 13:02:55] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 13:02:55] INFO: Fetching all teams
+
+[2025-07-06 13:02:55] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:02:55] INFO: Attempt 1/4
+
+[2025-07-06 13:02:55] INFO: Rate limit check passed
+
+[2025-07-06 13:02:55] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:02:55] DEBUG: Linear API Response
+  Status: 200
+  Duration: 125.409016ms
+  Response: 285 bytes
+
+[2025-07-06 13:02:55] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:02:55] INFO: Successfully fetched 1 teams
+
+[2025-07-06 13:02:55] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:02:55] INFO: Attempt 1/4
+
+[2025-07-06 13:02:55] INFO: Rate limit check passed
+
+[2025-07-06 13:02:55] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:02:55] DEBUG: Linear API Response
+  Status: 200
+  Duration: 120.689315ms
+  Response: 407 bytes
+
+[2025-07-06 13:02:55] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:02:55] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 13:02:55] INFO: Starting request execution with retry logic (max retries: 3)
+[2025-07-06 13:02:55] INFO: DetailPane: SetDimensions called - width: 61, height: 35, ready: false
+
+[2025-07-06 13:02:55] INFO: Attempt 1/4
+
+
+[2025-07-06 13:02:55] INFO: Rate limit check passed
+
+[2025-07-06 13:02:55] INFO: DetailPane: Viewport initialized in SetDimensions - width: 57, height: 22
+
+[2025-07-06 13:02:55] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 13:02:56] DEBUG: Linear API Response
+  Status: 200
+  Duration: 148.885105ms
+  Response: 64589 bytes
+
+[2025-07-06 13:02:56] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:02:56] INFO: Successfully fetched 21 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:02:56] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:02:56] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:02:56] INFO: Attempt 1/4
+
+[2025-07-06 13:02:56] INFO: Rate limit check passed
+
+[2025-07-06 13:02:56] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:02:56] DEBUG: Linear API Response
+  Status: 200
+  Duration: 136.998375ms
+  Response: 529 bytes
+
+[2025-07-06 13:02:56] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:02:56] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:02:56] INFO: DetailPane: Keyboard event while focused - key: tab, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:56] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:56] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:57] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:57] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:57] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:57] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:57] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:57] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:57] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:57] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:57] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:58] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:58] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:58] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:58] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:58] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:58] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:58] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:58] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:58] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:02:59] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:59] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:59] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:02:59] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:02:59] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:02:59] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:03:00] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:03:00] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:00] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:03:00] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:03:00] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:00] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:03:00] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:03:00] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:00] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:03:00] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:03:00] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:00] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:03:06] INFO: DetailPane: Keyboard event while not focused - ignoring key: tab
+
+[2025-07-06 13:03:07] INFO: DetailPane: Keyboard event while not focused - ignoring key: tab
+
+[2025-07-06 13:03:08] INFO: DetailPane: Keyboard event while not focused - ignoring key: j
+
+[2025-07-06 13:03:08] INFO: DetailPane: Keyboard event while not focused - ignoring key: j
+
+[2025-07-06 13:03:09] INFO: DetailPane: Keyboard event while not focused - ignoring key: j
+
+[2025-07-06 13:03:09] INFO: DetailPane: Keyboard event while focused - key: tab, viewport Y: 0, total lines: 68
+
+[2025-07-06 13:03:09] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:09] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:03:10] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 68
+
+[2025-07-06 13:03:10] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:10] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:03:10] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 68
+
+[2025-07-06 13:03:10] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:10] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:03:11] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 68
+
+[2025-07-06 13:03:11] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:11] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:03:11] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 68
+
+[2025-07-06 13:03:11] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:11] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:03:12] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 68
+
+[2025-07-06 13:03:12] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:12] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:03:13] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 68
+
+[2025-07-06 13:03:13] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:03:13] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:04:43] INFO: API key provided directly to NewClient
+
+[2025-07-06 13:04:43] INFO: Linear API client initialized
+
+[2025-07-06 13:04:43] INFO: Starting API key validation
+
+[2025-07-06 13:04:43] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:04:43] DEBUG: Linear API Response
+  Status: 200
+  Duration: 194.837549ms
+  Response: 121 bytes
+
+[2025-07-06 13:04:43] INFO: API key validated successfully for user: Pedram Navid (pedram.navid@gmail.com) [ID: 8e3d6742-5fa9-4d27-a23d-69ff471f6aae]
+
+[2025-07-06 13:04:43] INFO: Fetching all teams
+
+[2025-07-06 13:04:43] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:04:43] INFO: Attempt 1/4
+
+[2025-07-06 13:04:43] INFO: Rate limit check passed
+
+[2025-07-06 13:04:43] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:04:44] DEBUG: Linear API Response
+  Status: 200
+  Duration: 142.013907ms
+  Response: 285 bytes
+
+[2025-07-06 13:04:44] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:04:44] INFO: Successfully fetched 1 teams
+
+[2025-07-06 13:04:44] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:04:44] INFO: Attempt 1/4
+
+[2025-07-06 13:04:44] INFO: Rate limit check passed
+
+[2025-07-06 13:04:44] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:04:44] DEBUG: Linear API Response
+  Status: 200
+  Duration: 347.477232ms
+  Response: 407 bytes
+
+[2025-07-06 13:04:44] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:04:44] INFO: Fetching issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9 (limit: 50)
+
+[2025-07-06 13:04:44] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:04:44] INFO: Attempt 1/4
+
+[2025-07-06 13:04:44] INFO: DetailPane: SetDimensions called - width: 61, height: 35, ready: false
+[2025-07-06 13:04:44] INFO: Rate limit check passed
+
+
+[2025-07-06 13:04:44] INFO: DetailPane: Viewport initialized in SetDimensions - width: 57, height: 22
+
+[2025-07-06 13:04:44] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+  Variables: {
+    "first": 50,
+    "teamId": "59aa1359-c0da-4709-a07f-49438d7bf6f9"
+  }
+
+[2025-07-06 13:04:44] DEBUG: Linear API Response
+  Status: 200
+  Duration: 179.489883ms
+  Response: 64589 bytes
+
+[2025-07-06 13:04:44] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:04:44] INFO: Successfully fetched 21 issues for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:04:44] INFO: Fetching projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:04:44] INFO: Starting request execution with retry logic (max retries: 3)
+
+[2025-07-06 13:04:44] INFO: Attempt 1/4
+
+[2025-07-06 13:04:44] INFO: Rate limit check passed
+
+[2025-07-06 13:04:44] DEBUG: Linear API Request
+  Method: POST
+  URL: https://api.linear.app/graphql
+
+[2025-07-06 13:04:44] DEBUG: Linear API Response
+  Status: 200
+  Duration: 153.624247ms
+  Response: 529 bytes
+
+[2025-07-06 13:04:44] INFO: Request completed successfully on attempt 1
+
+[2025-07-06 13:04:44] INFO: Successfully fetched 2 projects for team 59aa1359-c0da-4709-a07f-49438d7bf6f9
+
+[2025-07-06 13:04:45] INFO: DetailPane: Keyboard event while focused - key: tab, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:45] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:04:45] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:04:45] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:45] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:04:45] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:04:45] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:45] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 1
+
+[2025-07-06 13:04:45] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 2
+
+[2025-07-06 13:04:45] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:45] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 2
+
+[2025-07-06 13:04:45] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 3
+
+[2025-07-06 13:04:46] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:46] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 3
+
+[2025-07-06 13:04:46] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 4
+
+[2025-07-06 13:04:46] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:46] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 4
+
+[2025-07-06 13:04:46] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 5
+
+[2025-07-06 13:04:46] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:46] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 5
+
+[2025-07-06 13:04:46] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 6
+
+[2025-07-06 13:04:46] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:46] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 6
+
+[2025-07-06 13:04:46] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 5
+
+[2025-07-06 13:04:46] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:46] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 5
+
+[2025-07-06 13:04:46] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 4
+
+[2025-07-06 13:04:46] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:46] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 4
+
+[2025-07-06 13:04:46] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 3
+
+[2025-07-06 13:04:47] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:47] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 3
+
+[2025-07-06 13:04:47] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 2
+
+[2025-07-06 13:04:47] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:47] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 2
+
+[2025-07-06 13:04:47] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:04:47] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:47] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 1
+
+[2025-07-06 13:04:47] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:04:47] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:47] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:04:47] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:04:47] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:47] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:04:47] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 1
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 2
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 2
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 3
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 3
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 4
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 4
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 5
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 5
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 6
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 6
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 7
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 7
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 8
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 8
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 9
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 9
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 10
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 10
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 11
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 11
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 12
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 12
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 13
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 13
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 14
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 14
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 15
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 15
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 16
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 16
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 17
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 17
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 18
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 18
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 19
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 19
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 20
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 20
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 21
+
+[2025-07-06 13:04:48] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:04:48] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 21
+
+[2025-07-06 13:04:48] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 22
+
+[2025-07-06 13:05:02] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:02] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 22
+
+[2025-07-06 13:05:02] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 23
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 23
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 24
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 24
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 25
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 25
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 26
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 26
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 27
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 27
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 28
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 28
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 29
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 29
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 30
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 30
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 31
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 31
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 32
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 32
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 33
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 33
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 34
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 34
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 35
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 35
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 36
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 36
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 37
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 37
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 38
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 38
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 39
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 39
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 40
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 40
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 41
+
+[2025-07-06 13:05:03] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:03] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 41
+
+[2025-07-06 13:05:03] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 42
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: j, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 42
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 43
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 43
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 42
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 42
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 41
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 41
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 40
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 40
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 39
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 39
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 38
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 38
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 37
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 37
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 36
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 36
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 35
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 35
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 34
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 34
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 33
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 33
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 32
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 32
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 31
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 31
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 30
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 30
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 29
+
+[2025-07-06 13:05:04] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:04] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 29
+
+[2025-07-06 13:05:04] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 28
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 28
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 27
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 27
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 26
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 26
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 25
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 25
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 24
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 24
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 23
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 23
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 22
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 22
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 21
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 21
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 20
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 20
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 19
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 19
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 18
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 18
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 17
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 17
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 16
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 16
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 15
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 15
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 14
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 14
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 13
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 13
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 12
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 12
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 11
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 11
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 10
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 10
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 9
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 9
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 8
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 8
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 7
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 7
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 6
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 6
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 5
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 5
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 4
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 4
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 3
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 3
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 2
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 2
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 1
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 1
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:05] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:05] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:05] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: Keyboard event while focused - key: k, viewport Y: 0, total lines: 75
+
+[2025-07-06 13:05:06] INFO: DetailPane: Before viewport.Update - Height: 22, YPosition: 0, YOffset: 0
+
+[2025-07-06 13:05:06] INFO: DetailPane: After viewport.Update - YPosition unchanged at 0, YOffset: 0
+

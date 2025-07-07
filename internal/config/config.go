@@ -12,10 +12,10 @@ type Config struct {
 }
 
 type Theme struct {
-	PrimaryColor   string `json:"primary_color"`
-	SecondaryColor string `json:"secondary_color"`
+	PrimaryColor    string `json:"primary_color"`
+	SecondaryColor  string `json:"secondary_color"`
 	BackgroundColor string `json:"background_color"`
-	TextColor      string `json:"text_color"`
+	TextColor       string `json:"text_color"`
 }
 
 func LoadConfig() (*Config, error) {
@@ -25,11 +25,16 @@ func LoadConfig() (*Config, error) {
 	}
 
 	configPath := filepath.Join(homeDir, ".config", "linear-tui", "config.json")
-	
+
 	data, err := os.ReadFile(configPath)
 	if err != nil {
 		if os.IsNotExist(err) {
-			return DefaultConfig(), nil
+			config := DefaultConfig()
+			// Check environment variable for API key
+			if apiKey := os.Getenv("LINEAR_API_KEY"); apiKey != "" {
+				config.LinearAPIKey = apiKey
+			}
+			return config, nil
 		}
 		return nil, err
 	}
@@ -37,6 +42,11 @@ func LoadConfig() (*Config, error) {
 	var config Config
 	if err := json.Unmarshal(data, &config); err != nil {
 		return nil, err
+	}
+
+	// Environment variable takes precedence
+	if apiKey := os.Getenv("LINEAR_API_KEY"); apiKey != "" {
+		config.LinearAPIKey = apiKey
 	}
 
 	return &config, nil
@@ -65,7 +75,7 @@ func (c *Config) Save() error {
 	}
 
 	configPath := filepath.Join(configDir, "config.json")
-	
+
 	data, err := json.MarshalIndent(c, "", "  ")
 	if err != nil {
 		return err

@@ -6,29 +6,29 @@ import "github.com/charmbracelet/lipgloss"
 type Pane int
 
 const (
-	PaneSidebar Pane = iota
+	PaneMenu Pane = iota
 	PaneMain
 	PaneDetail
 )
 
 // Styles contains all the styling for the application
 type Styles struct {
-	ActiveBorder    lipgloss.Style
-	InactiveBorder  lipgloss.Style
-	SidebarTitle    lipgloss.Style
-	SidebarItem     lipgloss.Style
-	SidebarSelected lipgloss.Style
-	MainTitle       lipgloss.Style
-	ListItem        lipgloss.Style
-	ListSelected    lipgloss.Style
-	DetailTitle     lipgloss.Style
-	DetailContent   lipgloss.Style
-	DetailMeta      lipgloss.Style
-	Placeholder     lipgloss.Style
-	StatusHigh      lipgloss.Style
-	StatusMedium    lipgloss.Style
-	StatusLow       lipgloss.Style
-	StatusDone      lipgloss.Style
+	ActiveBorder   lipgloss.Style
+	InactiveBorder lipgloss.Style
+	MenuTitle      lipgloss.Style
+	MenuItem       lipgloss.Style
+	MenuSelected   lipgloss.Style
+	MainTitle      lipgloss.Style
+	ListItem       lipgloss.Style
+	ListSelected   lipgloss.Style
+	DetailTitle    lipgloss.Style
+	DetailContent  lipgloss.Style
+	DetailMeta     lipgloss.Style
+	Placeholder    lipgloss.Style
+	StatusHigh     lipgloss.Style
+	StatusMedium   lipgloss.Style
+	StatusLow      lipgloss.Style
+	StatusDone     lipgloss.Style
 }
 
 // GetBorderStyle returns the appropriate border style based on focus state
@@ -63,30 +63,30 @@ func NewStyles() *Styles {
 			Border(lipgloss.RoundedBorder()).
 			BorderForeground(lipgloss.Color("#874BFD")).
 			Padding(0, 1),
-		
+
 		InactiveBorder: lipgloss.NewStyle().
 			Border(lipgloss.RoundedBorder()).
 			BorderForeground(lipgloss.Color("#626262")).
 			Padding(0, 1),
-		
-		// Sidebar styles
-		SidebarTitle: lipgloss.NewStyle().
+
+		// Menu bar styles
+		MenuTitle: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
 			Background(lipgloss.Color("#7D56F4")).
 			Padding(0, 1).
 			MarginBottom(1).
 			Bold(true),
-		
-		SidebarItem: lipgloss.NewStyle().
+
+		MenuItem: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#626262")).
 			Padding(0, 1),
-		
-		SidebarSelected: lipgloss.NewStyle().
+
+		MenuSelected: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
 			Background(lipgloss.Color("#874BFD")).
 			Padding(0, 1).
 			Bold(true),
-		
+
 		// Main pane styles
 		MainTitle: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
@@ -94,17 +94,17 @@ func NewStyles() *Styles {
 			Padding(0, 1).
 			MarginBottom(1).
 			Bold(true),
-		
+
 		ListItem: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#626262")).
 			Padding(0, 1),
-		
+
 		ListSelected: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
 			Background(lipgloss.Color("#874BFD")).
 			Padding(0, 1).
 			Bold(true),
-		
+
 		// Detail pane styles
 		DetailTitle: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
@@ -112,33 +112,33 @@ func NewStyles() *Styles {
 			Padding(0, 1).
 			MarginBottom(1).
 			Bold(true),
-		
+
 		DetailContent: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
 			Padding(0, 1),
-		
+
 		DetailMeta: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#626262")).
 			Padding(0, 1).
 			Italic(true),
-		
+
 		// Status styles
 		StatusHigh: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FF0000")).
 			Bold(true),
-		
+
 		StatusMedium: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FFA500")).
 			Bold(true),
-		
+
 		StatusLow: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#00FF00")).
 			Bold(true),
-		
+
 		StatusDone: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#808080")).
 			Strikethrough(true),
-		
+
 		// Placeholder styles
 		Placeholder: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#626262")).
