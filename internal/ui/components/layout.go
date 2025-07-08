@@ -21,6 +21,7 @@ type Layout struct {
 	DetailPane *DetailPane
 	Modal      *CreateTicketModal
 	ErrorModal *ErrorModal
+	HelpMenu   *HelpMenu
 
 	// Services
 	LinearService *services.LinearService
@@ -70,6 +71,7 @@ func NewLayout() *Layout {
 		DetailPane:    NewDetailPane(),
 		Modal:         NewCreateTicketModal(),
 		ErrorModal:    NewErrorModal(),
+		HelpMenu:      NewHelpMenu(),
 		LinearService: linearService,
 		FocusedPane:   PaneMain, // Start with main pane focused
 		AppState:      initialState,
@@ -157,6 +159,17 @@ func (l *Layout) Update(msg tea.Msg) (*Layout, tea.Cmd) {
 			return l, tea.Batch(cmds...)
 		}
 
+		// If help menu is visible, let it handle all input first
+		if l.HelpMenu.IsVisible {
+			helpMenu, helpMenuCmd := l.HelpMenu.Update(msg)
+			l.HelpMenu = helpMenu
+			if helpMenuCmd != nil {
+				cmds = append(cmds, helpMenuCmd)
+			}
+			// Return early to prevent background interaction
+			return l, tea.Batch(cmds...)
+		}
+
 		// If create ticket modal is visible, let it handle all input first
 		if l.Modal.IsVisible {
 			modal, modalCmd := l.Modal.Update(msg)
@@ -171,6 +184,10 @@ func (l *Layout) Update(msg tea.Msg) (*Layout, tea.Cmd) {
 		switch msg.String() {
 		case "ctrl+c", "q":
 			return l, tea.Quit
+
+		case "?":
+			// Toggle help menu
+			l.HelpMenu.Toggle()
 
 		case "c":
 			// Global hotkey to create new issue
@@ -417,6 +434,7 @@ func (l *Layout) View() string {
 	l.DetailPane.SetDimensions(l.Config.DetailPaneWidth, l.Config.MainContentHeight)
 	l.Modal.SetDimensions(l.Config.ScreenWidth, l.Config.ScreenHeight)
 	l.ErrorModal.SetDimensions(l.Config.ScreenWidth, l.Config.ScreenHeight)
+	l.HelpMenu.SetDimensions(l.Config.ScreenWidth, l.Config.ScreenHeight)
 
 	// Render components
 	menuView := l.MenuBar.View(l.Styles)
@@ -446,6 +464,20 @@ func (l *Layout) View() string {
 		// If error modal is not visible but we're in error state, show it
 		l.ErrorModal.Show("Linear API Error", l.LastError.Error())
 		return l.ErrorModal.View(l.Styles)
+	}
+
+	// Overlay help menu if visible
+	if l.HelpMenu.IsVisible {
+		helpMenuView := l.HelpMenu.View(l.Styles)
+
+		// Create help menu overlay with background
+		overlayStyle := lipgloss.NewStyle().
+			Width(l.Config.ScreenWidth).
+			Height(l.Config.ScreenHeight).
+			Align(lipgloss.Center, lipgloss.Center)
+
+		// Combine background and help menu
+		return overlayStyle.Render(helpMenuView)
 	}
 
 	// Overlay create ticket modal if visible
