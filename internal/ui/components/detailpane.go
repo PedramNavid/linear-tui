@@ -7,7 +7,7 @@ import (
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/linear-tui/linear-tui/internal/ui/mock"
+	"github.com/linear-tui/linear-tui/internal/domain"
 )
 
 const (
@@ -28,8 +28,8 @@ type DetailPane struct {
 	Focused bool
 
 	// Content
-	SelectedTicket  *mock.MockTicket
-	SelectedProject *mock.MockProject
+	SelectedIssue   *domain.Issue
+	SelectedProject *domain.Project
 	ViewType        string // "issues" or "projects"
 
 	// Viewport for scrolling
@@ -186,14 +186,14 @@ func (d *DetailPane) buildPlaceholderSection(styles *Styles) string {
 	return "\n" + result.String()
 }
 
-// SetSelectedTicket sets the selected ticket for display
-func (d *DetailPane) SetSelectedTicket(ticket *mock.MockTicket) {
-	// Skip if same ticket is already selected
-	if d.SelectedTicket != nil && ticket != nil && d.SelectedTicket.ID == ticket.ID {
+// SetSelectedIssue sets the selected issue for display
+func (d *DetailPane) SetSelectedIssue(issue *domain.Issue) {
+	// Skip if same issue is already selected
+	if d.SelectedIssue != nil && issue != nil && d.SelectedIssue.ID == issue.ID {
 		return
 	}
 
-	d.SelectedTicket = ticket
+	d.SelectedIssue = issue
 	d.SelectedProject = nil
 	d.ViewType = "issues"
 
@@ -205,14 +205,14 @@ func (d *DetailPane) SetSelectedTicket(ticket *mock.MockTicket) {
 }
 
 // SetSelectedProject sets the selected project for display
-func (d *DetailPane) SetSelectedProject(project *mock.MockProject) {
+func (d *DetailPane) SetSelectedProject(project *domain.Project) {
 	// Skip if same project is already selected
 	if d.SelectedProject != nil && project != nil && d.SelectedProject.ID == project.ID {
 		return
 	}
 
 	d.SelectedProject = project
-	d.SelectedTicket = nil
+	d.SelectedIssue = nil
 	d.ViewType = "projects"
 
 	// Update viewport content if ready
@@ -278,8 +278,8 @@ func (d *DetailPane) buildContent(styles *Styles) string {
 	var content strings.Builder
 
 	// Content based on what's selected
-	if d.ViewType == "issues" && d.SelectedTicket != nil {
-		d.renderTicketDetailsStyled(&content, styles)
+	if d.ViewType == "issues" && d.SelectedIssue != nil {
+		d.renderIssueDetailsStyled(&content, styles)
 	} else if d.ViewType == "projects" && d.SelectedProject != nil {
 		d.renderProjectDetailsStyled(&content, styles)
 	} else {
@@ -299,27 +299,27 @@ func (d *DetailPane) updateViewportDimensions() {
 	d.viewport.Height = d.getViewportHeight()
 }
 
-// renderTicketDetailsStyled renders ticket details with styles applied
-func (d *DetailPane) renderTicketDetailsStyled(content *strings.Builder, styles *Styles) {
-	ticket := d.SelectedTicket
+// renderIssueDetailsStyled renders issue details with styles applied
+func (d *DetailPane) renderIssueDetailsStyled(content *strings.Builder, styles *Styles) {
+	issue := d.SelectedIssue
 	contentWidth := d.getContentWidth()
 
 	// Title with proper width constraint
 	titleStyle := styles.DetailContent.Width(contentWidth).MaxWidth(contentWidth)
-	content.WriteString(titleStyle.Render(fmt.Sprintf("Title: %s", ticket.Title)))
+	content.WriteString(titleStyle.Render(fmt.Sprintf("Title: %s", issue.Title)))
 	content.WriteString("\n\n")
 
 	// Metadata with proper styling
 	metaStyle := styles.DetailMeta.Width(contentWidth).MaxWidth(contentWidth)
-	content.WriteString(metaStyle.Render(fmt.Sprintf("ID: %s", ticket.ID)))
+	content.WriteString(metaStyle.Render(fmt.Sprintf("ID: %s", issue.ID)))
 	content.WriteString("\n")
-	content.WriteString(metaStyle.Render(fmt.Sprintf("Status: %s", ticket.Status)))
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Status: %s", issue.Status)))
 	content.WriteString("\n")
-	content.WriteString(metaStyle.Render(fmt.Sprintf("Priority: %s", ticket.Priority)))
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Priority: %s", issue.Priority)))
 	content.WriteString("\n")
-	content.WriteString(metaStyle.Render(fmt.Sprintf("Assignee: %s", ticket.Assignee)))
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Assignee: %s", issue.Assignee)))
 	content.WriteString("\n")
-	content.WriteString(metaStyle.Render(fmt.Sprintf("Created: %s", ticket.CreatedAt.Format("2006-01-02 15:04"))))
+	content.WriteString(metaStyle.Render(fmt.Sprintf("Created: %s", issue.CreatedAt.Format("2006-01-02 15:04"))))
 	content.WriteString("\n\n")
 
 	// Description with lipgloss width handling
@@ -328,7 +328,7 @@ func (d *DetailPane) renderTicketDetailsStyled(content *strings.Builder, styles 
 
 	// Use lipgloss to handle text wrapping
 	descStyle := styles.DetailContent.Width(contentWidth).MaxWidth(contentWidth)
-	content.WriteString(descStyle.Render(ticket.Description))
+	content.WriteString(descStyle.Render(issue.Description))
 }
 
 // renderProjectDetailsStyled renders project details with styles applied

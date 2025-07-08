@@ -1,8 +1,8 @@
 package adapters
 
 import (
+	"github.com/linear-tui/linear-tui/internal/domain"
 	"github.com/linear-tui/linear-tui/internal/linear"
-	"github.com/linear-tui/linear-tui/internal/ui/mock"
 	"time"
 )
 
@@ -14,8 +14,8 @@ func NewLinearAdapter() *LinearAdapter {
 	return &LinearAdapter{}
 }
 
-// ConvertIssueToMockTicket converts a Linear Issue to a MockTicket for UI compatibility
-func (a *LinearAdapter) ConvertIssueToMockTicket(issue linear.Issue) mock.MockTicket {
+// ConvertIssueToUIModel converts a Linear Issue to a domain Issue for UI usage
+func (a *LinearAdapter) ConvertIssueToUIModel(issue linear.Issue) domain.Issue {
 	// Convert priority number to string
 	priorityStr := a.convertPriorityToString(issue.Priority)
 
@@ -25,8 +25,9 @@ func (a *LinearAdapter) ConvertIssueToMockTicket(issue linear.Issue) mock.MockTi
 		assigneeName = issue.Assignee.Name
 	}
 
-	return mock.MockTicket{
+	return domain.Issue{
 		ID:          issue.Identifier,
+		LinearID:    issue.ID,
 		Title:       issue.Title,
 		Description: issue.Description,
 		Status:      issue.State.Name,
@@ -36,18 +37,18 @@ func (a *LinearAdapter) ConvertIssueToMockTicket(issue linear.Issue) mock.MockTi
 	}
 }
 
-// ConvertIssuesToMockTickets converts a slice of Linear Issues to MockTickets
-func (a *LinearAdapter) ConvertIssuesToMockTickets(issues []linear.Issue) []mock.MockTicket {
-	tickets := make([]mock.MockTicket, len(issues))
+// ConvertIssuesToUIModels converts a slice of Linear Issues to domain Issues
+func (a *LinearAdapter) ConvertIssuesToUIModels(issues []linear.Issue) []domain.Issue {
+	uiIssues := make([]domain.Issue, len(issues))
 	for i, issue := range issues {
-		tickets[i] = a.ConvertIssueToMockTicket(issue)
+		uiIssues[i] = a.ConvertIssueToUIModel(issue)
 	}
-	return tickets
+	return uiIssues
 }
 
-// ConvertProjectToMockProject converts a Linear Project to a MockProject for UI compatibility
-func (a *LinearAdapter) ConvertProjectToMockProject(project linear.Project) mock.MockProject {
-	return mock.MockProject{
+// ConvertProjectToUIModel converts a Linear Project to a domain Project for UI usage
+func (a *LinearAdapter) ConvertProjectToUIModel(project linear.Project) domain.Project {
+	return domain.Project{
 		ID:          project.ID,
 		Name:        project.Name,
 		Description: project.Description,
@@ -57,25 +58,13 @@ func (a *LinearAdapter) ConvertProjectToMockProject(project linear.Project) mock
 	}
 }
 
-// ConvertProjectsToMockProjects converts a slice of Linear Projects to MockProjects
-func (a *LinearAdapter) ConvertProjectsToMockProjects(projects []linear.Project) []mock.MockProject {
-	mockProjects := make([]mock.MockProject, len(projects))
+// ConvertProjectsToUIModels converts a slice of Linear Projects to domain Projects
+func (a *LinearAdapter) ConvertProjectsToUIModels(projects []linear.Project) []domain.Project {
+	uiProjects := make([]domain.Project, len(projects))
 	for i, project := range projects {
-		mockProjects[i] = a.ConvertProjectToMockProject(project)
+		uiProjects[i] = a.ConvertProjectToUIModel(project)
 	}
-	return mockProjects
-}
-
-// ConvertMockTicketToCreateIssueInput converts a MockTicket to CreateIssueInput
-func (a *LinearAdapter) ConvertMockTicketToCreateIssueInput(ticket mock.MockTicket, teamID string) linear.CreateIssueInput {
-	return linear.CreateIssueInput{
-		Title:       ticket.Title,
-		Description: ticket.Description,
-		TeamID:      teamID,
-		Priority:    a.ConvertPriorityToNumber(ticket.Priority),
-		// Note: StateID and AssigneeID would need to be resolved separately
-		// since the mock types don't contain the actual IDs
-	}
+	return uiProjects
 }
 
 // convertPriorityToString converts Linear priority number to string

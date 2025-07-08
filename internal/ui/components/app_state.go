@@ -1,6 +1,6 @@
 package components
 
-import "github.com/linear-tui/linear-tui/internal/ui/mock"
+import "github.com/linear-tui/linear-tui/internal/domain"
 
 // AppState represents the current state of the application
 type AppState int
@@ -35,11 +35,22 @@ type LoadingMsg struct {
 
 // DataLoadedMsg represents a message indicating data has been loaded successfully
 type DataLoadedMsg struct {
-	Tickets  []mock.MockTicket
-	Projects []mock.MockProject
+	Issues   []domain.Issue
+	Projects []domain.Project
 }
 
 // DataLoadErrorMsg represents a message indicating data loading failed
 type DataLoadErrorMsg struct {
+	Error error
+}
+
+// RefreshSingleIssueMsg triggers a refresh of a single issue
+type RefreshSingleIssueMsg struct {
+	IssueID string
+}
+
+// SingleIssueRefreshedMsg contains the updated issue data
+type SingleIssueRefreshedMsg struct {
+	Issue *domain.Issue
 	Error error
 }

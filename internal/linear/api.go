@@ -10,7 +10,7 @@ func (c *Client) GetIssues(ctx context.Context, teamID string, limit int) ([]Iss
 	c.debugLog.LogInfo("Fetching issues for team %s (limit: %d)", teamID, limit)
 	query := `
 		query GetIssues($teamId: ID!, $first: Int!) {
-			issues(filter: { team: { id: { eq: $teamId } } }, first: $first) {
+			issues(filter: { team: { id: { eq: $teamId } } }, first: $first, orderBy: updatedAt) {
 				nodes {
 					id
 					identifier
@@ -70,12 +70,71 @@ func (c *Client) GetIssues(ctx context.Context, teamID string, limit int) ([]Iss
 	return response.Issues.Nodes, nil
 }
 
+// GetIssueByID retrieves a single issue by its ID
+func (c *Client) GetIssueByID(ctx context.Context, issueID string) (*Issue, error) {
+	c.debugLog.LogInfo("Fetching issue with ID %s", issueID)
+	query := `
+		query GetIssue($id: String!) {
+			issue(id: $id) {
+				id
+				identifier
+				title
+				description
+				priority
+				createdAt
+				updatedAt
+				state {
+					id
+					name
+					type
+					color
+				}
+				assignee {
+					id
+					name
+					email
+					avatarUrl
+				}
+				team {
+					id
+					name
+					key
+				}
+				project {
+					id
+					name
+				}
+			}
+		}
+	`
+
+	variables := map[string]interface{}{
+		"id": issueID,
+	}
+
+	var response struct {
+		Issue Issue `json:"issue"`
+	}
+
+	err := c.executeWithRetry(ctx, func() error {
+		return c.executeGraphQL(ctx, query, variables, &response)
+	})
+
+	if err != nil {
+		c.debugLog.LogError("Failed to fetch issue", err)
+		return nil, err
+	}
+
+	c.debugLog.LogInfo("Successfully fetched issue %s", response.Issue.Identifier)
+	return &response.Issue, nil
+}
+
 // GetProjects retrieves projects for a team
 func (c *Client) GetProjects(ctx context.Context, teamID string) ([]Project, error) {
 	c.debugLog.LogInfo("Fetching projects for team %s", teamID)
 	query := `
 		query GetProjects {
-			projects {
+			projects(orderBy: updatedAt) {
 				nodes {
 					id
 					name
@@ -269,7 +328,7 @@ func (c *Client) CreateIssue(ctx context.Context, input CreateIssueInput) (*Issu
 // UpdateIssue updates an existing issue
 func (c *Client) UpdateIssue(ctx context.Context, id string, input UpdateIssueInput) (*Issue, error) {
 	mutation := `
-		mutation UpdateIssue($id: ID!, $input: IssueUpdateInput!) {
+		mutation UpdateIssue($id: String!, $input: IssueUpdateInput!) {
 			issueUpdate(id: $id, input: $input) {
 				success
 				issue {
@@ -409,7 +468,7 @@ func (c *Client) CreateComment(ctx context.Context, issueID, body string) (*Comm
 // GetIssueStates retrieves available issue states for a team
 func (c *Client) GetIssueStates(ctx context.Context, teamID string) ([]IssueState, error) {
 	query := `
-		query GetIssueStates($teamId: ID!) {
+		query GetIssueStates($teamId: String!) {
 			team(id: $teamId) {
 				states {
 					nodes {

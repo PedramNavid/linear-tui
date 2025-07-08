@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/linear-tui/linear-tui/internal/config"
+	"github.com/linear-tui/linear-tui/internal/domain"
 	"github.com/linear-tui/linear-tui/internal/linear"
 	"github.com/linear-tui/linear-tui/internal/ui/adapters"
-	"github.com/linear-tui/linear-tui/internal/ui/mock"
 )
 
 // LinearService handles all Linear API interactions and data conversion
@@ -78,8 +78,8 @@ func (s *LinearService) initialize() error {
 	return nil
 }
 
-// GetTickets fetches issues from Linear and converts them to MockTickets for UI compatibility
-func (s *LinearService) GetTickets() ([]mock.MockTicket, error) {
+// GetTickets fetches issues from Linear and converts them to domain Issues for UI usage
+func (s *LinearService) GetTickets() ([]domain.Issue, error) {
 	if s.defaultTeam == nil {
 		return nil, fmt.Errorf("no default team available - please check your Linear workspace access")
 	}
@@ -92,13 +92,28 @@ func (s *LinearService) GetTickets() ([]mock.MockTicket, error) {
 		return nil, fmt.Errorf("failed to fetch issues from Linear API: %w", err)
 	}
 
-	// Convert to mock tickets for UI compatibility
-	tickets := s.adapter.ConvertIssuesToMockTickets(issues)
-	return tickets, nil
+	// Convert to domain issues for UI usage
+	uiIssues := s.adapter.ConvertIssuesToUIModels(issues)
+	return uiIssues, nil
 }
 
-// GetProjects fetches projects from Linear and converts them to MockProjects for UI compatibility
-func (s *LinearService) GetProjects() ([]mock.MockProject, error) {
+// GetTicketByID fetches a single issue by ID from Linear and converts it to domain Issue
+func (s *LinearService) GetTicketByID(issueID string) (*domain.Issue, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	issue, err := s.client.GetIssueByID(ctx, issueID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch issue from Linear API: %w", err)
+	}
+
+	// Convert to domain issue for UI usage
+	uiIssue := s.adapter.ConvertIssueToUIModel(*issue)
+	return &uiIssue, nil
+}
+
+// GetProjects fetches projects from Linear and converts them to domain Projects for UI usage
+func (s *LinearService) GetProjects() ([]domain.Project, error) {
 	if s.defaultTeam == nil {
 		return nil, fmt.Errorf("no default team available - please check your Linear workspace access")
 	}
@@ -111,13 +126,13 @@ func (s *LinearService) GetProjects() ([]mock.MockProject, error) {
 		return nil, fmt.Errorf("failed to fetch projects from Linear API: %w", err)
 	}
 
-	// Convert to mock projects for UI compatibility
-	mockProjects := s.adapter.ConvertProjectsToMockProjects(projects)
-	return mockProjects, nil
+	// Convert to domain projects for UI usage
+	uiProjects := s.adapter.ConvertProjectsToUIModels(projects)
+	return uiProjects, nil
 }
 
 // CreateTicket creates a new issue in Linear
-func (s *LinearService) CreateTicket(title, description, priority, assigneeName string) (*mock.MockTicket, error) {
+func (s *LinearService) CreateTicket(title, description, priority, assigneeName string) (*domain.Issue, error) {
 	if s.defaultTeam == nil {
 		return nil, fmt.Errorf("no default team available")
 	}
@@ -152,9 +167,9 @@ func (s *LinearService) CreateTicket(title, description, priority, assigneeName 
 		return nil, fmt.Errorf("failed to create issue: %w", err)
 	}
 
-	// Convert to mock ticket for UI compatibility
-	ticket := s.adapter.ConvertIssueToMockTicket(*issue)
-	return &ticket, nil
+	// Convert to domain issue for UI usage
+	uiIssue := s.adapter.ConvertIssueToUIModel(*issue)
+	return &uiIssue, nil
 }
 
 // GetTeams returns available teams
@@ -181,6 +196,60 @@ func (s *LinearService) SetDefaultTeam(teamID string) error {
 		}
 	}
 	return fmt.Errorf("team with ID %s not found", teamID)
+}
+
+// UpdateTicket updates an existing issue in Linear
+func (s *LinearService) UpdateTicket(issueID, title, description, priority, assigneeName, statusName string) (*domain.Issue, error) {
+	if s.defaultTeam == nil {
+		return nil, fmt.Errorf("no default team available")
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	// Build update input
+	input := linear.UpdateIssueInput{
+		Title:       title,
+		Description: description,
+	}
+
+	// Convert priority string to number if provided
+	if priority != "" {
+		input.Priority = s.adapter.ConvertPriorityToNumber(priority)
+	}
+
+	// Find assignee ID if specified
+	if assigneeName != "" && assigneeName != "Unassigned" {
+		for _, user := range s.users {
+			if user.Name == assigneeName {
+				input.AssigneeID = user.ID
+				break
+			}
+		}
+	}
+
+	// Find state ID if status name provided
+	if statusName != "" {
+		states, err := s.GetIssueStates()
+		if err == nil {
+			for _, state := range states {
+				if state.Name == statusName {
+					input.StateID = state.ID
+					break
+				}
+			}
+		}
+	}
+
+	// Update the issue
+	issue, err := s.client.UpdateIssue(ctx, issueID, input)
+	if err != nil {
+		return nil, fmt.Errorf("failed to update issue: %w", err)
+	}
+
+	// Convert to domain issue for UI usage
+	uiIssue := s.adapter.ConvertIssueToUIModel(*issue)
+	return &uiIssue, nil
 }
 
 // RefreshData forces a refresh of cached data

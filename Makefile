@@ -49,7 +49,9 @@ run: build
 # Run with debug logging
 .PHONY: run-debug
 run-debug: build
+	rm -f debug.log
 	@echo "Running $(BINARY_NAME) with debug logging..."
+
 	DEBUG=1 ./$(BUILD_DIR)/$(BINARY_NAME)
 
 # Format code

@@ -29,10 +29,10 @@ type LayoutConfig struct {
 // NewLayoutConfig creates a layout config with sensible defaults
 func NewLayoutConfig() *LayoutConfig {
 	return &LayoutConfig{
-		MenuBarHeight:   3,  // Title + border + padding
-		FooterHeight:    1,  // Single line for help text
+		MenuBarHeight:   3,   // Title + border + padding
+		FooterHeight:    1,   // Single line for help text
 		DetailPaneRatio: 0.5, // 50/50 split by default
-		MinPaneWidth:    30, // Minimum readable width
+		MinPaneWidth:    30,  // Minimum readable width
 		ShowDetailPane:  true,
 		BorderWidth:     1,
 		Padding:         1,
@@ -54,12 +54,12 @@ func (lc *LayoutConfig) UpdateDimensions(width, height int) {
 	if lc.ShowDetailPane {
 		// Calculate detail pane width based on ratio
 		detailWidth := int(float64(width) * lc.DetailPaneRatio)
-		
+
 		// Ensure minimum widths
 		if detailWidth < lc.MinPaneWidth {
 			detailWidth = lc.MinPaneWidth
 		}
-		
+
 		mainWidth := width - detailWidth
 		if mainWidth < lc.MinPaneWidth {
 			// If we can't fit both panes, prioritize main pane
@@ -73,7 +73,7 @@ func (lc *LayoutConfig) UpdateDimensions(width, height int) {
 				return
 			}
 		}
-		
+
 		lc.MainPaneWidth = mainWidth
 		lc.DetailPaneWidth = detailWidth
 	} else {
@@ -108,17 +108,17 @@ func (lc *LayoutConfig) CanFitLayout() (bool, string) {
 	if lc.ShowDetailPane {
 		minWidth = lc.MinPaneWidth * 2
 	}
-	
+
 	minHeight := lc.MenuBarHeight + lc.FooterHeight + 10 // At least 10 lines for content
-	
+
 	if lc.ScreenWidth < minWidth {
 		return false, "Terminal too narrow"
 	}
-	
+
 	if lc.ScreenHeight < minHeight {
 		return false, "Terminal too short"
 	}
-	
+
 	return true, ""
 }
 

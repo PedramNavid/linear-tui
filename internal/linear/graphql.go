@@ -79,7 +79,17 @@ func (c *Client) executeGraphQL(ctx context.Context, query string, variables map
 	}
 
 	if resp.StatusCode != 200 {
-		return NewLinearError(ErrorTypeAPI, fmt.Sprintf("unexpected status code: %d", resp.StatusCode), resp.StatusCode)
+		// Try to parse error response
+		var errorResp struct {
+			Errors []struct {
+				Message string `json:"message"`
+			} `json:"errors"`
+		}
+		if err := json.Unmarshal(body, &errorResp); err == nil && len(errorResp.Errors) > 0 {
+			return NewLinearError(ErrorTypeAPI, fmt.Sprintf("Linear API error: %s (status: %d)", errorResp.Errors[0].Message, resp.StatusCode), resp.StatusCode)
+		}
+		// If can't parse, return generic error with body for debugging
+		return NewLinearError(ErrorTypeAPI, fmt.Sprintf("unexpected status code: %d, body: %s", resp.StatusCode, string(body)), resp.StatusCode)
 	}
 
 	var gqlResp GraphQLResponse

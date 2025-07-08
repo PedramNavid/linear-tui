@@ -40,6 +40,11 @@ func (d *DebugLogger) LogRequest(method, url, query string, variables map[string
 	d.logger.Printf("  Method: %s\n", method)
 	d.logger.Printf("  URL: %s\n", url)
 
+	// Log the GraphQL query
+	if query != "" {
+		d.logger.Printf("  Query: %s\n", query)
+	}
+
 	if len(variables) > 0 {
 		varsJSON, _ := json.MarshalIndent(variables, "  ", "  ")
 		d.logger.Printf("  Variables: %s\n", string(varsJSON))

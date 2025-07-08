@@ -8,6 +8,7 @@ import (
 	"github.com/charmbracelet/bubbles/textinput"
 	"github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/linear-tui/linear-tui/internal/domain"
 	"github.com/linear-tui/linear-tui/internal/ui/services"
 )
 
@@ -30,10 +31,15 @@ type SelectOption struct {
 	Label string
 }
 
-// CreateTicketModal represents the modal for creating a new ticket
+// CreateTicketModal represents the modal for creating or editing an issue
 type CreateTicketModal struct {
 	// Visibility
 	IsVisible bool
+
+	// Mode
+	IsEditMode     bool
+	IssueLinearID  string // Linear's internal ID for updates
+	IssueDisplayID string // Display ID (e.g., "PED-35")
 
 	// Form fields
 	Title       textinput.Model
@@ -68,7 +74,7 @@ type CreateTicketModal struct {
 	LinearService *services.LinearService
 }
 
-// NewCreateTicketModal creates a new ticket creation modal
+// NewCreateTicketModal creates a new issue creation modal
 func NewCreateTicketModal() *CreateTicketModal {
 	// Initialize title input
 	titleInput := textinput.New()
@@ -135,6 +141,50 @@ func (m *CreateTicketModal) Hide() {
 	m.Title.Blur()
 	m.Description.Blur()
 	m.reset()
+}
+
+// ShowEdit displays the modal in edit mode with pre-populated data
+func (m *CreateTicketModal) ShowEdit(issue *domain.Issue) {
+	m.IsVisible = true
+	m.IsEditMode = true
+	m.IssueLinearID = issue.LinearID
+	m.IssueDisplayID = issue.ID
+	m.FocusedField = FieldTitle
+	m.Title.Focus()
+	m.Description.Blur()
+	m.clearMessages()
+	m.PopulateFromIssue(issue)
+}
+
+// PopulateFromIssue fills the form fields with issue data
+func (m *CreateTicketModal) PopulateFromIssue(issue *domain.Issue) {
+	m.Title.SetValue(issue.Title)
+	m.Description.SetValue(issue.Description)
+
+	// Set priority selection
+	for i, opt := range m.PriorityOptions {
+		if opt.Label == issue.Priority {
+			m.SelectedPriority = i
+			break
+		}
+	}
+
+	// Set status selection
+	for i, opt := range m.StatusOptions {
+		if opt.Label == issue.Status {
+			m.SelectedStatus = i
+			break
+		}
+	}
+
+	// Set assignee selection
+	m.SelectedAssignee = 0 // Default to unassigned
+	for i, opt := range m.AssigneeOptions {
+		if opt.Label == issue.Assignee {
+			m.SelectedAssignee = i
+			break
+		}
+	}
 }
 
 // Update handles keyboard input for the modal
@@ -228,6 +278,10 @@ func (m *CreateTicketModal) View(styles *Styles) string {
 	var content strings.Builder
 
 	// Header
+	headerText := "Create New Issue"
+	if m.IsEditMode {
+		headerText = fmt.Sprintf("Modify Issue %s", m.IssueDisplayID)
+	}
 	header := lipgloss.NewStyle().
 		Foreground(lipgloss.Color("#FAFAFA")).
 		Background(lipgloss.Color("#7D56F4")).
@@ -235,7 +289,7 @@ func (m *CreateTicketModal) View(styles *Styles) string {
 		Width(contentWidth).
 		Align(lipgloss.Center).
 		Bold(true).
-		Render(fmt.Sprintf("Create New Issue - %s", m.TeamName))
+		Render(fmt.Sprintf("%s - %s", headerText, m.TeamName))
 
 	content.WriteString(header)
 	content.WriteString("\n\n")
@@ -268,10 +322,14 @@ func (m *CreateTicketModal) View(styles *Styles) string {
 		submitStyle = styles.Placeholder
 	}
 
+	submitButtonText := "[ Create Issue ]"
+	if m.IsEditMode {
+		submitButtonText = "[ Update Issue ]"
+	}
 	submitButton := submitStyle.
 		Width(contentWidth).
 		Align(lipgloss.Center).
-		Render("[ Create Issue ]")
+		Render(submitButtonText)
 	content.WriteString(submitButton)
 	content.WriteString("\n\n")
 
@@ -454,7 +512,7 @@ func (m *CreateTicketModal) submitForm() tea.Cmd {
 	m.IsSubmitting = true
 	m.clearMessages()
 
-	// Create ticket data
+	// Create issue data
 	title := strings.TrimSpace(m.Title.Value())
 	description := strings.TrimSpace(m.Description.Value())
 
@@ -469,24 +527,51 @@ func (m *CreateTicketModal) submitForm() tea.Cmd {
 	}
 
 	// Extract form values
-	priority := m.PriorityOptions[m.SelectedPriority].Value
-	assignee := m.AssigneeOptions[m.SelectedAssignee].Value
+	priority := m.PriorityOptions[m.SelectedPriority].Label
+	assignee := m.AssigneeOptions[m.SelectedAssignee].Label
+	status := m.StatusOptions[m.SelectedStatus].Label
 
-	// Create ticket via Linear service if available
+	// Handle edit mode vs create mode
 	if m.LinearService != nil {
-		return func() tea.Msg {
-			ticket, err := m.LinearService.CreateTicket(title, description, priority, assignee)
-			if err != nil {
+		if m.IsEditMode {
+			// Update existing issue
+			return func() tea.Msg {
+				issue, err := m.LinearService.UpdateTicket(m.IssueLinearID, title, description, priority, assignee, status)
+				if err != nil {
+					return CreateTicketResult{
+						Success: false,
+						Message: err.Error(),
+						Error:   err,
+					}
+				}
+
 				return CreateTicketResult{
-					Success: false,
-					Message: err.Error(),
-					Error:   err,
+					Success:   true,
+					Message:   fmt.Sprintf("Issue '%s' updated successfully", issue.ID),
+					IsUpdate:  true,
+					IssueID:   m.IssueLinearID,
+					IssueData: issue,
 				}
 			}
+		} else {
+			// Create new issue
+			return func() tea.Msg {
+				issue, err := m.LinearService.CreateTicket(title, description, priority, assignee)
+				if err != nil {
+					return CreateTicketResult{
+						Success: false,
+						Message: err.Error(),
+						Error:   err,
+					}
+				}
 
-			return CreateTicketResult{
-				Success: true,
-				Message: fmt.Sprintf("Issue '%s' created successfully with ID: %s", ticket.Title, ticket.ID),
+				return CreateTicketResult{
+					Success:   true,
+					Message:   fmt.Sprintf("Issue '%s' created successfully with ID: %s", issue.Title, issue.ID),
+					IsUpdate:  false,
+					IssueID:   issue.LinearID,
+					IssueData: issue,
+				}
 			}
 		}
 	}
@@ -512,6 +597,9 @@ func (m *CreateTicketModal) reset() {
 	m.SelectedPriority = 1
 	m.SelectedAssignee = 0
 	m.SelectedProject = 0
+	m.IsEditMode = false
+	m.IssueLinearID = ""
+	m.IssueDisplayID = ""
 	m.clearMessages()
 }
 
@@ -526,9 +614,12 @@ func (m *CreateTicketModal) SetLinearService(service *services.LinearService) {
 	m.LinearService = service
 }
 
-// CreateTicketResult represents the result of ticket creation
+// CreateTicketResult represents the result of issue creation/update
 type CreateTicketResult struct {
-	Success bool
-	Message string
-	Error   error
+	Success   bool
+	Message   string
+	Error     error
+	IsUpdate  bool          // true if this was an update operation
+	IssueID   string        // Linear ID of the created/updated issue
+	IssueData *domain.Issue // The full issue data (optional)
 }

@@ -6,7 +6,7 @@ import (
 
 	"github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/linear-tui/linear-tui/internal/ui/mock"
+	"github.com/linear-tui/linear-tui/internal/domain"
 )
 
 const (
@@ -31,8 +31,8 @@ type MainPane struct {
 	ViewportStart int // First visible item index
 
 	// Data
-	Tickets  []mock.MockTicket
-	Projects []mock.MockProject
+	Issues   []domain.Issue
+	Projects []domain.Project
 }
 
 // NewMainPane creates a new main pane component
@@ -40,9 +40,9 @@ func NewMainPane() *MainPane {
 	return &MainPane{
 		ViewType:     "issues",
 		SelectedItem: 0,
-		Focused:      false,                // Will be set by layout
-		Tickets:      []mock.MockTicket{},  // Start with empty data - will be loaded from Linear
-		Projects:     []mock.MockProject{}, // Start with empty data - will be loaded from Linear
+		Focused:      false,              // Will be set by layout
+		Issues:       []domain.Issue{},   // Start with empty data - will be loaded from Linear
+		Projects:     []domain.Project{}, // Start with empty data - will be loaded from Linear
 	}
 }
 
@@ -150,12 +150,11 @@ func (m *MainPane) buildHelpSection(styles *Styles) string {
 	return styles.Placeholder.Width(m.getContentWidth()).Render("↑/↓ to navigate • Enter to select • Ctrl+D to toggle details pane")
 }
 
-
 // getTitle returns the title for the current view
 func (m *MainPane) getTitle() string {
 	switch m.ViewType {
 	case "issues":
-		return fmt.Sprintf("Issues (%d)", len(m.Tickets))
+		return fmt.Sprintf("Issues (%d)", len(m.Issues))
 	case "projects":
 		return fmt.Sprintf("Projects (%d)", len(m.Projects))
 	default:
@@ -167,7 +166,7 @@ func (m *MainPane) getTitle() string {
 func (m *MainPane) getMaxItems() int {
 	switch m.ViewType {
 	case "issues":
-		return len(m.Tickets)
+		return len(m.Issues)
 	case "projects":
 		return len(m.Projects)
 	default:
@@ -182,16 +181,16 @@ func (m *MainPane) SetViewType(viewType string) {
 	m.ViewportStart = 0 // Reset viewport when switching views
 }
 
-// GetSelectedTicket returns the currently selected ticket
-func (m *MainPane) GetSelectedTicket() *mock.MockTicket {
-	if m.ViewType == "issues" && m.SelectedItem >= 0 && m.SelectedItem < len(m.Tickets) {
-		return &m.Tickets[m.SelectedItem]
+// GetSelectedTicket returns the currently selected issue
+func (m *MainPane) GetSelectedIssue() *domain.Issue {
+	if m.ViewType == "issues" && m.SelectedItem >= 0 && m.SelectedItem < len(m.Issues) {
+		return &m.Issues[m.SelectedItem]
 	}
 	return nil
 }
 
 // GetSelectedProject returns the currently selected project
-func (m *MainPane) GetSelectedProject() *mock.MockProject {
+func (m *MainPane) GetSelectedProject() *domain.Project {
 	if m.ViewType == "projects" && m.SelectedItem >= 0 && m.SelectedItem < len(m.Projects) {
 		return &m.Projects[m.SelectedItem]
 	}
@@ -267,18 +266,18 @@ func (m *MainPane) renderIssuesListStyled(content *strings.Builder, styles *Styl
 	contentWidth := m.getContentWidth()
 
 	// Calculate visible range
-	startIdx, endIdx := m.calculateVisibleRange(len(m.Tickets), availableHeight)
+	startIdx, endIdx := m.calculateVisibleRange(len(m.Issues), availableHeight)
 
-	for i := startIdx; i <= endIdx && i < len(m.Tickets); i++ {
+	for i := startIdx; i <= endIdx && i < len(m.Issues); i++ {
 		if i > startIdx {
 			content.WriteString("\n")
 		}
 
-		ticket := m.Tickets[i]
+		issue := m.Issues[i]
 		isSelected := i == m.SelectedItem && m.Focused
 
 		// Build the item text
-		itemText := m.formatTicketItem(ticket, contentWidth, styles)
+		itemText := m.formatIssueItem(issue, contentWidth, styles)
 
 		// Apply selection style
 		var style lipgloss.Style
@@ -292,15 +291,15 @@ func (m *MainPane) renderIssuesListStyled(content *strings.Builder, styles *Styl
 	}
 }
 
-// formatTicketItem formats a ticket item with proper styling
-func (m *MainPane) formatTicketItem(ticket mock.MockTicket, width int, styles *Styles) string {
+// formatTicketItem formats a issue item with proper styling
+func (m *MainPane) formatIssueItem(issue domain.Issue, width int, styles *Styles) string {
 	// Build components
-	id := fmt.Sprintf("[%s]", ticket.ID)
-	status := ticket.Status
-	priority := fmt.Sprintf("(%s)", ticket.Priority)
+	id := fmt.Sprintf("[%s]", issue.ID)
+	status := issue.Status
+	priority := fmt.Sprintf("(%s)", issue.Priority)
 
 	// Apply priority color
-	priorityStyled := styles.GetStatusStyle(ticket.Priority).Render(priority)
+	priorityStyled := styles.GetStatusStyle(issue.Priority).Render(priority)
 
 	// Calculate available space for title
 	metadataLen := len(id) + 1 + len(status) + 1 + len(priority) + 3 // spaces and separators
@@ -308,7 +307,7 @@ func (m *MainPane) formatTicketItem(ticket mock.MockTicket, width int, styles *S
 
 	// Use lipgloss to handle title truncation
 	titleStyle := lipgloss.NewStyle().MaxWidth(titleSpace)
-	titleRendered := titleStyle.Render(ticket.Title)
+	titleRendered := titleStyle.Render(issue.Title)
 
 	// Build final string
 	return fmt.Sprintf("%s %s - %s %s", id, titleRendered, status, priorityStyled)
@@ -346,7 +345,7 @@ func (m *MainPane) renderProjectsListStyled(content *strings.Builder, styles *St
 }
 
 // formatProjectItem formats a project item
-func (m *MainPane) formatProjectItem(project mock.MockProject, width int) string {
+func (m *MainPane) formatProjectItem(project domain.Project, width int) string {
 	// Build components
 	id := fmt.Sprintf("[%s]", project.ID)
 	status := project.Status
@@ -362,4 +361,15 @@ func (m *MainPane) formatProjectItem(project mock.MockProject, width int) string
 
 	// Build final string
 	return fmt.Sprintf("%s %s - %s %s", id, nameRendered, status, progress)
+}
+
+// UpdateSingleIssue updates a single issue in the list
+func (m *MainPane) UpdateSingleIssue(updatedIssue domain.Issue) {
+	for i := range m.Issues {
+		if m.Issues[i].LinearID == updatedIssue.LinearID {
+			// Update the issue while preserving the position
+			m.Issues[i] = updatedIssue
+			break
+		}
+	}
 }
