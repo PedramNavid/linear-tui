@@ -147,7 +147,7 @@ func (m *MainPane) buildListSection(styles *Styles) string {
 
 // buildHelpSection builds the help text section
 func (m *MainPane) buildHelpSection(styles *Styles) string {
-	return styles.Placeholder.Width(m.getContentWidth()).Render("↑/↓ to navigate • Enter to select • Ctrl+D to toggle details pane")
+	return styles.Placeholder.Width(m.getContentWidth()).Render("↑/↓ to navigate • Enter to select • Ctrl+D to toggle details pane • ? for help")
 }
 
 // getTitle returns the title for the current view

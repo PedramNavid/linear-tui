@@ -91,7 +91,7 @@ func (m *MenuBar) View(styles *Styles) string {
 
 	// Add help text on a new line
 	content.WriteString("\n")
-	helpText := styles.Placeholder.Render("←/→ to navigate • Enter to select • Tab to switch panes")
+	helpText := styles.Placeholder.Render("←/→ to navigate • Enter to select • Tab to switch panes • ? for help")
 	content.WriteString(helpText)
 
 	// Apply border and sizing
