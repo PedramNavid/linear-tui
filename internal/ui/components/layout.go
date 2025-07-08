@@ -27,10 +27,11 @@ type Layout struct {
 
 	// State
 	FocusedPane    Pane
-	TerminalWidth  int
-	TerminalHeight int
 	AppState       AppState
 	LastError      error
+
+	// Layout configuration
+	Config *LayoutConfig
 
 	// Styles
 	Styles *Styles
@@ -73,9 +74,8 @@ func NewLayout() *Layout {
 		FocusedPane:    PaneMain, // Start with main pane focused
 		AppState:       initialState,
 		LastError:      serviceError,
+		Config:         NewLayoutConfig(),
 		Styles:         NewStyles(),
-		TerminalWidth:  80, // Default dimensions
-		TerminalHeight: 24,
 	}
 
 	// Initialize focus states
@@ -91,15 +91,25 @@ func NewLayout() *Layout {
 
 // Init initializes the layout
 func (l *Layout) Init() tea.Cmd {
+	// Get initial window size
+	cmds := []tea.Cmd{
+		// Request initial window size
+		func() tea.Msg {
+			// This will trigger a WindowSizeMsg on startup
+			return tea.WindowSizeMsg{}
+		},
+	}
+	
 	// Start loading data immediately if we have a Linear service
 	if l.LinearService != nil {
-		return l.loadDataAsync()
+		cmds = append(cmds, l.loadDataAsync())
+	} else {
+		// If no Linear service, we can't proceed
+		l.AppState = StateError
+		l.LastError = fmt.Errorf("linear API key not configured - please set LINEAR_API_KEY environment variable")
 	}
 
-	// If no Linear service, we can't proceed
-	l.AppState = StateError
-	l.LastError = fmt.Errorf("linear API key not configured - please set LINEAR_API_KEY environment variable")
-	return nil
+	return tea.Batch(cmds...)
 }
 
 // Update handles all keyboard input and updates
@@ -109,6 +119,7 @@ func (l *Layout) Update(msg tea.Msg) (*Layout, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
 		l.handleResize(msg.Width, msg.Height)
+		return l, nil
 
 	case LoadingMsg:
 		l.AppState = StateLoading
@@ -174,6 +185,16 @@ func (l *Layout) Update(msg tea.Msg) (*Layout, tea.Cmd) {
 		case "esc":
 			l.FocusedPane = PaneMain
 			l.updateFocusStates()
+
+		case "ctrl+d":
+			// Toggle detail pane visibility
+			l.Config.ToggleDetailPane()
+			// If detail pane was hidden and we were focused on it, move focus to main
+			if !l.Config.ShowDetailPane && l.FocusedPane == PaneDetail {
+				l.FocusedPane = PaneMain
+			}
+			l.updateFocusStates()
+			return l, nil
 
 		case "enter":
 			if l.FocusedPane == PaneMenu {
@@ -271,31 +292,22 @@ func (l *Layout) loadDataCmd() tea.Cmd {
 
 // View renders the entire layout
 func (l *Layout) View() string {
-	// If no terminal size set yet, use reasonable defaults
-	if l.TerminalWidth == 0 || l.TerminalHeight == 0 {
-		l.TerminalWidth = 120
-		l.TerminalHeight = 30
-	}
-
-	// Check minimum terminal size requirements
-	minWidth := 80
-	minHeight := 31
-
-	if l.TerminalWidth < minWidth || l.TerminalHeight < minHeight {
+	// Check if layout can fit
+	if canFit, reason := l.Config.CanFitLayout(); !canFit {
 		errorMsg := lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FF0000")).
 			Bold(true).
-			Render("Terminal too small!")
+			Render(reason)
 
 		sizeMsg := lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#CCCCCC")).
-			Render(fmt.Sprintf("Current: %dx%d", l.TerminalWidth, l.TerminalHeight))
+			Render(fmt.Sprintf("Current: %dx%d", l.Config.ScreenWidth, l.Config.ScreenHeight))
 
 		reqMsg := lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#CCCCCC")).
-			Render(fmt.Sprintf("Minimum: %dx%d", minWidth, minHeight))
+			Render(fmt.Sprintf("Minimum: %dx%d", l.Config.MinPaneWidth*2, l.Config.MenuBarHeight+l.Config.FooterHeight+10))
 
-		return lipgloss.JoinVertical(lipgloss.Left,
+		return lipgloss.JoinVertical(lipgloss.Center,
 			"",
 			errorMsg,
 			"",
@@ -306,15 +318,12 @@ func (l *Layout) View() string {
 		)
 	}
 
-	// Calculate layout dimensions
-	dimensions := l.calculateLayout(l.TerminalWidth, l.TerminalHeight)
-
-	// Update component dimensions
-	l.MenuBar.SetDimensions(dimensions.MenuWidth, dimensions.MenuHeight)
-	l.MainPane.SetDimensions(dimensions.MainWidth, dimensions.MainHeight)
-	l.DetailPane.SetDimensions(dimensions.DetailWidth, dimensions.DetailHeight)
-	l.Modal.SetDimensions(l.TerminalWidth, l.TerminalHeight)
-	l.ErrorModal.SetDimensions(l.TerminalWidth, l.TerminalHeight)
+	// Update component dimensions using layout config
+	l.MenuBar.SetDimensions(l.Config.ScreenWidth, l.Config.MenuBarHeight)
+	l.MainPane.SetDimensions(l.Config.MainPaneWidth, l.Config.MainContentHeight)
+	l.DetailPane.SetDimensions(l.Config.DetailPaneWidth, l.Config.MainContentHeight)
+	l.Modal.SetDimensions(l.Config.ScreenWidth, l.Config.ScreenHeight)
+	l.ErrorModal.SetDimensions(l.Config.ScreenWidth, l.Config.ScreenHeight)
 
 	// Render components
 	menuView := l.MenuBar.View(l.Styles)
@@ -322,7 +331,12 @@ func (l *Layout) View() string {
 	detailView := l.DetailPane.View(l.Styles)
 
 	// Create the bottom row (main + detail panes side-by-side)
-	bottomRow := lipgloss.JoinHorizontal(lipgloss.Top, mainView, detailView)
+	var bottomRow string
+	if l.Config.ShowDetailPane {
+		bottomRow = lipgloss.JoinHorizontal(lipgloss.Top, mainView, detailView)
+	} else {
+		bottomRow = mainView
+	}
 
 	// Stack menu bar on top, panes below
 	layout := lipgloss.JoinVertical(lipgloss.Top, menuView, bottomRow)
@@ -347,8 +361,8 @@ func (l *Layout) View() string {
 
 		// Create modal overlay with background
 		overlayStyle := lipgloss.NewStyle().
-			Width(l.TerminalWidth).
-			Height(l.TerminalHeight).
+			Width(l.Config.ScreenWidth).
+			Height(l.Config.ScreenHeight).
 			Align(lipgloss.Center, lipgloss.Center)
 
 		// Combine background and modal
@@ -360,8 +374,13 @@ func (l *Layout) View() string {
 
 // handleResize updates the terminal dimensions and recalculates layout
 func (l *Layout) handleResize(width, height int) {
-	l.TerminalWidth = width
-	l.TerminalHeight = height
+	l.Config.UpdateDimensions(width, height)
+	
+	// If detail pane is visible, ensure viewports are properly sized
+	if l.Config.ShowDetailPane && l.DetailPane != nil {
+		// This will trigger viewport resize in the detail pane
+		l.DetailPane.SetDimensions(l.Config.DetailPaneWidth, l.Config.MainContentHeight)
+	}
 }
 
 // moveFocusForward moves focus to the next pane
@@ -370,7 +389,11 @@ func (l *Layout) moveFocusForward() {
 	case PaneMenu:
 		l.FocusedPane = PaneMain
 	case PaneMain:
-		l.FocusedPane = PaneDetail
+		if l.Config.ShowDetailPane {
+			l.FocusedPane = PaneDetail
+		} else {
+			l.FocusedPane = PaneMenu
+		}
 	case PaneDetail:
 		l.FocusedPane = PaneMenu
 	}
@@ -381,7 +404,11 @@ func (l *Layout) moveFocusForward() {
 func (l *Layout) moveFocusBackward() {
 	switch l.FocusedPane {
 	case PaneMenu:
-		l.FocusedPane = PaneDetail
+		if l.Config.ShowDetailPane {
+			l.FocusedPane = PaneDetail
+		} else {
+			l.FocusedPane = PaneMain
+		}
 	case PaneMain:
 		l.FocusedPane = PaneMenu
 	case PaneDetail:
@@ -434,55 +461,6 @@ func (l *Layout) GetFocusedPane() Pane {
 	return l.FocusedPane
 }
 
-// LayoutDimensions calculates the dimensions for each pane
-type LayoutDimensions struct {
-	MenuWidth    int
-	MenuHeight   int
-	MainWidth    int
-	MainHeight   int
-	DetailWidth  int
-	DetailHeight int
-}
-
-// calculateLayout calculates the layout dimensions based on terminal size
-func (l *Layout) calculateLayout(terminalWidth, terminalHeight int) LayoutDimensions {
-	// Calculate menu bar dimensions (full width, 3 lines height)
-	menuWidth := terminalWidth
-	menuHeight := 3
-
-	// Calculate remaining space for main and detail panes
-	remainingHeight := terminalHeight - menuHeight
-
-	// Calculate main and detail pane dimensions (side by side)
-	mainWidth := terminalWidth / 2           // 50% width for main pane
-	detailWidth := terminalWidth - mainWidth // 50% width for detail pane
-
-	// Both panes use full remaining height
-	mainHeight := remainingHeight
-	detailHeight := remainingHeight
-
-	// Ensure minimum dimensions
-	minMainWidth := 40
-	minDetailWidth := 30
-
-	if mainWidth < minMainWidth {
-		mainWidth = minMainWidth
-		detailWidth = terminalWidth - mainWidth
-	}
-	if detailWidth < minDetailWidth {
-		detailWidth = minDetailWidth
-		mainWidth = terminalWidth - detailWidth
-	}
-
-	return LayoutDimensions{
-		MenuWidth:    menuWidth,
-		MenuHeight:   menuHeight,
-		MainWidth:    mainWidth,
-		MainHeight:   mainHeight,
-		DetailWidth:  detailWidth,
-		DetailHeight: detailHeight,
-	}
-}
 
 // renderLoadingView renders the loading screen
 func (l *Layout) renderLoadingView() string {
@@ -497,8 +475,8 @@ func (l *Layout) renderLoadingView() string {
 	}
 
 	loadingStyle := lipgloss.NewStyle().
-		Width(l.TerminalWidth).
-		Height(l.TerminalHeight).
+		Width(l.Config.ScreenWidth).
+		Height(l.Config.ScreenHeight).
 		Align(lipgloss.Center, lipgloss.Center).
 		Foreground(lipgloss.Color("#CCCCCC"))
 
