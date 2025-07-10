@@ -211,7 +211,7 @@ func (m *CreateTicketModal) Update(msg tea.Msg) (*CreateTicketModal, tea.Cmd) {
 		case "shift+tab":
 			m.moveFocusBackward()
 
-		case "ctrl+enter":
+		case "alt+enter":
 			if m.canSubmit() {
 				return m, m.submitForm()
 			}
@@ -357,7 +357,7 @@ func (m *CreateTicketModal) View(styles *Styles) string {
 		Foreground(lipgloss.Color("#626262")).
 		Italic(true).
 		Width(contentWidth).
-		Render("Tab/Shift+Tab: Navigate • Ctrl+Enter: Submit • ESC: Cancel")
+		Render("Tab/Shift+Tab: Navigate • Alt+Enter: Submit • ESC: Cancel")
 	content.WriteString(helpText)
 
 	// Apply modal styling

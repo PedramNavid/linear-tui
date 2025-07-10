@@ -147,7 +147,11 @@ func (m *MainPane) buildListSection(styles *Styles) string {
 
 // buildHelpSection builds the help text section
 func (m *MainPane) buildHelpSection(styles *Styles) string {
-	return styles.Placeholder.Width(m.getContentWidth()).Render("↑/↓ to navigate • Enter to select • Ctrl+D to toggle details pane")
+	helpText := "↑/↓ navigate • Enter select • Ctrl+D details • r refresh"
+	if m.ViewType == "issues" {
+		helpText += " • Status: ◦ Backlog ○ Todo ● In Progress ✓ Done"
+	}
+	return styles.Placeholder.Width(m.getContentWidth()).Render(helpText)
 }
 
 // getTitle returns the title for the current view
@@ -293,24 +297,28 @@ func (m *MainPane) renderIssuesListStyled(content *strings.Builder, styles *Styl
 
 // formatTicketItem formats a issue item with proper styling
 func (m *MainPane) formatIssueItem(issue domain.Issue, width int, styles *Styles) string {
+	// Get status icon and style
+	statusIcon, statusStyle := styles.GetStatusIcon(issue.Status)
+	statusStyled := statusStyle.Render(statusIcon)
+	
 	// Build components
 	id := fmt.Sprintf("[%s]", issue.ID)
-	status := issue.Status
 	priority := fmt.Sprintf("(%s)", issue.Priority)
 
 	// Apply priority color
 	priorityStyled := styles.GetStatusStyle(issue.Priority).Render(priority)
 
 	// Calculate available space for title
-	metadataLen := len(id) + 1 + len(status) + 1 + len(priority) + 3 // spaces and separators
+	// Format: "● [ID] Title (Priority)"
+	metadataLen := 1 + 1 + len(id) + 1 + len(priority) + 1 // status + space + id + space + priority + space
 	titleSpace := width - metadataLen
 
 	// Use lipgloss to handle title truncation
 	titleStyle := lipgloss.NewStyle().MaxWidth(titleSpace)
 	titleRendered := titleStyle.Render(issue.Title)
 
-	// Build final string
-	return fmt.Sprintf("%s %s - %s %s", id, titleRendered, status, priorityStyled)
+	// Build final string: Status Icon + ID + Title + Priority
+	return fmt.Sprintf("%s %s %s %s", statusStyled, id, titleRendered, priorityStyled)
 }
 
 // renderProjectsListStyled renders the list of projects with pre-applied styles

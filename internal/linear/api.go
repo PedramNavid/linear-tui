@@ -10,7 +10,14 @@ func (c *Client) GetIssues(ctx context.Context, teamID string, limit int) ([]Iss
 	c.debugLog.LogInfo("Fetching issues for team %s (limit: %d)", teamID, limit)
 	query := `
 		query GetIssues($teamId: ID!, $first: Int!) {
-			issues(filter: { team: { id: { eq: $teamId } } }, first: $first, orderBy: updatedAt) {
+			issues(
+				filter: { 
+					team: { id: { eq: $teamId } },
+					state: { type: { in: ["backlog", "unstarted", "started"] } }
+				}, 
+				first: $first, 
+				orderBy: updatedAt
+			) {
 				nodes {
 					id
 					identifier

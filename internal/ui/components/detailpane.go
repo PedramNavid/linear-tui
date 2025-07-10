@@ -313,7 +313,10 @@ func (d *DetailPane) renderIssueDetailsStyled(content *strings.Builder, styles *
 	metaStyle := styles.DetailMeta.Width(contentWidth).MaxWidth(contentWidth)
 	content.WriteString(metaStyle.Render(fmt.Sprintf("ID: %s", issue.ID)))
 	content.WriteString("\n")
-	content.WriteString(metaStyle.Render(fmt.Sprintf("Status: %s", issue.Status)))
+	// Get status icon and render with color
+	statusIcon, statusStyle := styles.GetStatusIcon(issue.Status)
+	statusDisplay := fmt.Sprintf("Status: %s %s", statusStyle.Render(statusIcon), issue.Status)
+	content.WriteString(metaStyle.Render(statusDisplay))
 	content.WriteString("\n")
 	content.WriteString(metaStyle.Render(fmt.Sprintf("Priority: %s", issue.Priority)))
 	content.WriteString("\n")

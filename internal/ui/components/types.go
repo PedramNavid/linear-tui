@@ -29,6 +29,13 @@ type Styles struct {
 	StatusMedium   lipgloss.Style
 	StatusLow      lipgloss.Style
 	StatusDone     lipgloss.Style
+	// Status icon styles
+	StatusBacklog    lipgloss.Style
+	StatusTodo       lipgloss.Style
+	StatusInProgress lipgloss.Style
+	StatusCompleted  lipgloss.Style
+	StatusCancelled  lipgloss.Style
+	StatusDuplicate  lipgloss.Style
 }
 
 // GetBorderStyle returns the appropriate border style based on focus state
@@ -52,6 +59,27 @@ func (s *Styles) GetStatusStyle(status string) lipgloss.Style {
 		return s.StatusDone
 	default:
 		return s.DetailMeta
+	}
+}
+
+// GetStatusIcon returns the icon and style for a given status
+func (s *Styles) GetStatusIcon(status string) (string, lipgloss.Style) {
+	switch status {
+	case "Backlog":
+		return "◦", s.StatusBacklog
+	case "Todo":
+		return "○", s.StatusTodo
+	case "In Progress":
+		return "●", s.StatusInProgress
+	case "Done":
+		return "✓", s.StatusCompleted
+	case "Cancelled", "Canceled":
+		return "✗", s.StatusCancelled
+	case "Duplicate":
+		return "≡", s.StatusDuplicate
+	default:
+		// Fallback for unknown statuses
+		return "?", s.DetailMeta
 	}
 }
 
@@ -143,5 +171,26 @@ func NewStyles() *Styles {
 		Placeholder: lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#626262")).
 			Italic(true),
+
+		// Status icon styles
+		StatusBacklog: lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#626262")),
+
+		StatusTodo: lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#626262")),
+
+		StatusInProgress: lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#FFA500")).
+			Bold(true),
+
+		StatusCompleted: lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#874BFD")).
+			Bold(true),
+
+		StatusCancelled: lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#626262")),
+
+		StatusDuplicate: lipgloss.NewStyle().
+			Foreground(lipgloss.Color("#626262")),
 	}
 }
