@@ -49,7 +49,7 @@ func NewClient(apiKey string) (*Client, error) {
 		baseURL:     "https://api.linear.app/graphql",
 		rateLimiter: NewRateLimiter(),
 		retryConfig: RetryConfig{
-			MaxRetries: 3,
+			MaxRetries: 2,
 			BaseDelay:  1 * time.Second,
 			MaxDelay:   10 * time.Second,
 		},
