@@ -5,7 +5,9 @@ import (
 	"os"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/linear-tui/linear-tui/internal/config"
 	"github.com/linear-tui/linear-tui/internal/domain"
+	"github.com/linear-tui/linear-tui/internal/ui/services"
 	"github.com/linear-tui/linear-tui/internal/ui/testdata"
 )
 
@@ -13,6 +15,7 @@ type model struct {
 	issues        []domain.Issue
 	cursor        int
 	selectedIssue map[int]struct{}
+	err           error
 }
 
 func initialModel() model {
@@ -54,15 +57,23 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.selectedIssue[m.cursor] = struct{}{}
 			}
 		}
-	}
 
+	case errMsg:
+		m.err = msg
+		return m, tea.Quit
+
+	case issuesMsg:
+		m.issues = msg.Issues()
+		return m, nil
+
+	}
 	// Return the updated model to the Bubble Tea runtime for processing.
 	// Note that we're not returning a command.
 	return m, nil
 }
 
 func (m model) Init() tea.Cmd {
-	return nil
+	return getLinearIssues
 }
 
 func (m model) View() string {
@@ -94,6 +105,33 @@ func (m model) View() string {
 	// Send the UI for rendering
 	return s
 }
+
+func getLinearIssues() tea.Msg {
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		return errMsg{err}
+	}
+	linearService, err := services.NewLinearService(cfg)
+	if err != nil {
+		return errMsg{err}
+	}
+
+	issues, err := linearService.GetTickets()
+	if err != nil {
+		return errMsg{err}
+	}
+	return issuesMsg{issues}
+}
+
+type issuesMsg struct {
+	issues []domain.Issue
+}
+
+func (m issuesMsg) Issues() []domain.Issue { return m.issues }
+
+type errMsg struct{ err error }
+
+func (e errMsg) Error() string { return e.err.Error() }
 
 func main() {
 	p := tea.NewProgram(initialModel())
