@@ -9,6 +9,7 @@ import (
 type Config struct {
 	LinearAPIKey string `json:"linear_api_key"`
 	Theme        Theme  `json:"theme"`
+	DebugMode    bool   `json:"debug_mode"`
 }
 
 type Theme struct {
@@ -30,9 +31,11 @@ func LoadConfig() (*Config, error) {
 	if err != nil {
 		if os.IsNotExist(err) {
 			config := DefaultConfig()
-			// Check environment variable for API key
 			if apiKey := os.Getenv("LINEAR_API_KEY"); apiKey != "" {
 				config.LinearAPIKey = apiKey
+			}
+			if debugMode := os.Getenv("DEBUG"); debugMode != "" {
+				config.DebugMode = true
 			}
 			return config, nil
 		}
