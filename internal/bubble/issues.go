@@ -4,29 +4,37 @@ import (
 	"time"
 )
 
-// Item represents a list item for the bubble tea list
-type Item struct {
+// Issue represents a list item for the bubble tea list
+type Issue struct {
 	ID          string
-	Title       string
-	Description string
-	Status      string
-	Priority    string
-	Assignee    string
-	CreatedAt   time.Time
+	title       string
+	description string
+	status      string
+	priority    string
+	assignee    string
+	createdAt   time.Time
 }
 
-func NewItem(id, title, description, status, priority, assignee string, createdAt time.Time) Item {
-	return Item{
+func NewItem(id, title, description, status, priority, assignee string, createdAt time.Time) Issue {
+	return Issue{
 		ID:          id,
-		Title:       title,
-		Description: description,
-		Status:      status,
-		Priority:    priority,
-		Assignee:    assignee,
-		CreatedAt:   createdAt,
+		title:       title,
+		description: description,
+		status:      status,
+		priority:    priority,
+		assignee:    assignee,
+		createdAt:   createdAt,
 	}
 }
 
-func (i Item) FilterValue() string {
-	return i.Title
+func (i Issue) FilterValue() string {
+	return i.title
+}
+
+func (i Issue) Title() string {
+	return i.title
+}
+
+func (i Issue) Description() string {
+	return i.description
 }

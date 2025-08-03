@@ -38,6 +38,7 @@ const (
 
 type leftModel struct {
 	Issues list.Model
+	err    error
 }
 
 type rightModel struct {
@@ -57,26 +58,31 @@ type mainModel struct {
 	delegateKeys *delegateKeyMap
 }
 
-type issuesLoadedMsg []list.Item
-
 func (m *leftModel) Init() tea.Cmd {
-	return func() tea.Msg {
-		return issuesLoadedMsg(getTestData())
-	}
+	return nil
 }
 
 func (m *leftModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-	var cmd tea.Cmd
 	switch msg := msg.(type) {
-	case issuesLoadedMsg:
-		m.Issues.SetItems(msg)
+	case tea.WindowSizeMsg:
+		m.initList(msg.Width, msg.Height)
 	}
+
+	var cmd tea.Cmd
 	m.Issues, cmd = m.Issues.Update(msg)
 	return m, cmd
 }
 
 func (m *leftModel) View() string {
 	return docStyle.Render(m.Issues.View())
+}
+
+func (m *leftModel) initList(width, height int) {
+	m.Issues = list.New([]list.Item{}, list.NewDefaultDelegate(), width, height)
+	m.Issues.Title = "To Do"
+	m.Issues.SetItems([]list.Item{
+		NewItem("1", "Test", "Test", "Test", "Test", "Test", time.Now()),
+	})
 }
 
 func (m *rightModel) Init() tea.Cmd {
@@ -125,23 +131,9 @@ func NewModel() *mainModel {
 		listKeys     = newListKeyMap()
 	)
 
-	delegate := newItemDelegate(delegateKeys)
-	issues := list.New([]list.Item{}, delegate, 0, 0)
-	issues.Title = "Linear TUI"
-	issues.AdditionalFullHelpKeys = func() []key.Binding {
-		return []key.Binding{
-			listKeys.insertItem,
-			listKeys.toggleSpinner,
-			listKeys.toggleTitleBar,
-			listKeys.toggleStatusBar,
-			listKeys.togglePagination,
-			listKeys.toggleHelpMenu,
-		}
-	}
-
 	return &mainModel{
 		left: leftModel{
-			Issues: issues,
+			Issues: list.New([]list.Item{}, list.NewDefaultDelegate(), 0, 0),
 		},
 		right:        rightModel{},
 		keys:         listKeys,
@@ -175,6 +167,7 @@ func (m *mainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		h, v := docStyle.GetFrameSize()
 		m.width = msg.Width - h
 		m.height = msg.Height - v
+		m.left.Update(msg)
 		return m, nil
 	}
 
@@ -193,7 +186,7 @@ func (m *mainModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m *mainModel) Init() tea.Cmd {
-	return m.left.Init()
+	return nil
 }
 
 func getTestData() []list.Item {
