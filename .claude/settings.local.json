@@ -24,7 +24,8 @@
       "WebFetch(domain:pkg.go.dev)",
       "Bash(git add:*)",
       "Bash(git push:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "mcp__linear-server__get_issue"
     ],
     "deny": []
   }
