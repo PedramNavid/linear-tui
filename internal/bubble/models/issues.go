@@ -1,4 +1,4 @@
-package bubble
+package models
 
 import (
 	"time"
@@ -15,7 +15,7 @@ type Issue struct {
 	createdAt   time.Time
 }
 
-func NewItem(id, title, description, status, priority, assignee string, createdAt time.Time) Issue {
+func NewIssue(id, title, description, status, priority, assignee string, createdAt time.Time) Issue {
 	return Issue{
 		ID:          id,
 		title:       title,

@@ -5,26 +5,21 @@ import (
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/linear-tui/linear-tui/internal/bubble/models"
 )
 
 var statusMessageStyle = lipgloss.NewStyle().
 	Foreground(lipgloss.AdaptiveColor{Light: "#04B575", Dark: "#04B575"}).
 	Render
 
-var (
-	selectedItemStyle = lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#FFFDF5")).
-		Background(lipgloss.Color("#7D56F4")).
-		Padding(0, 1)
-)
-
 func newItemDelegate(keys *delegateKeyMap) list.DefaultDelegate {
 	d := list.NewDefaultDelegate()
+	d.SetSpacing(0)
 
 	d.UpdateFunc = func(msg tea.Msg, m *list.Model) tea.Cmd {
 		var title string
 
-		if i, ok := m.SelectedItem().(Issue); ok {
+		if i, ok := m.SelectedItem().(models.Issue); ok {
 			title = i.Title()
 		} else {
 			return nil
