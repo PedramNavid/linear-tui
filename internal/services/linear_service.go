@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/linear-tui/linear-tui/internal/adapters"
 	"github.com/linear-tui/linear-tui/internal/config"
 	"github.com/linear-tui/linear-tui/internal/domain"
 	"github.com/linear-tui/linear-tui/internal/linear"
-	"github.com/linear-tui/linear-tui/internal/ui/adapters"
 )
 
 // LinearService handles all Linear API interactions and data conversion
