@@ -46,7 +46,7 @@ func (l *Layout) View(width, height int) string {
 	menuHeight := lipgloss.Height(l.MenuBar.View(l.Styles))
 	l.MainPane.SetDimensions(width-2, height-menuHeight-2)
 	menuView := l.MenuBar.View(l.Styles)
-	mainPaneView := l.MainPane.View()
+	mainPaneView := l.MainPane.View(l.Styles)
 
 	return lipgloss.JoinVertical(lipgloss.Top, menuView, mainPaneView)
 }

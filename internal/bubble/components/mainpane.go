@@ -10,9 +10,10 @@ import (
 )
 
 type MainPane struct {
-	Issues list.Model
-	Width  int
-	Height int
+	Issues  list.Model
+	Width   int
+	Height  int
+	Focused bool
 }
 
 func NewMainPane() *MainPane {
@@ -40,9 +41,9 @@ func (m *MainPane) View(styles *ui.Styles) string {
 	return mainStyle.Render(m.Issues.View())
 }
 
-func (m *MenuBar) getFocusedPane() ui.Pane {
+func (m *MainPane) getFocusedPane() ui.Pane {
 	if m.Focused {
-		return ui.
+		return ui.MainPane
 	}
 	return ui.MainPane
 }
