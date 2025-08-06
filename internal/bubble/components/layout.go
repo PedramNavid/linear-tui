@@ -7,14 +7,16 @@ import (
 )
 
 type Layout struct {
-	MenuBar *MenuBar
-	Styles  *ui.Styles
+	MenuBar  *MenuBar
+	MainPane *MainPane
+	Styles   *ui.Styles
 }
 
 func NewLayout(styles *ui.Styles) *Layout {
 	return &Layout{
-		MenuBar: NewMenuBar(),
-		Styles:  styles,
+		MenuBar:  NewMenuBar(),
+		MainPane: NewMainPane(),
+		Styles:   styles,
 	}
 }
 
@@ -30,14 +32,21 @@ func (l *Layout) Update(msg tea.Msg) (*Layout, tea.Cmd) {
 		cmds = append(cmds, menuBarCmd)
 	}
 
+	mainPane, mainPaneCmd := l.MainPane.Update(msg)
+	l.MainPane = mainPane
+	if mainPaneCmd != nil {
+		cmds = append(cmds, mainPaneCmd)
+	}
+
 	return l, tea.Batch(cmds...)
 }
 
-func (l *Layout) View() string {
-	//	menuBar := l.MenuBar.View(l.Styles)
-
-	l.MenuBar.SetDimensions(150, 15)
+func (l *Layout) View(width, height int) string {
+	l.MenuBar.SetDimensions(width-2, height-2)
+	menuHeight := lipgloss.Height(l.MenuBar.View(l.Styles))
+	l.MainPane.SetDimensions(width-2, height-menuHeight-2)
 	menuView := l.MenuBar.View(l.Styles)
+	mainPaneView := l.MainPane.View()
 
-	return lipgloss.JoinVertical(lipgloss.Top, menuView)
+	return lipgloss.JoinVertical(lipgloss.Top, menuView, mainPaneView)
 }

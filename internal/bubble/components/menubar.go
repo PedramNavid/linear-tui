@@ -77,12 +77,7 @@ func (m *MenuBar) View(styles *ui.Styles) string {
 	}
 	borderStyle := styles.GetBorderStyle(ui.MenuPane, m.getFocusedPane())
 
-	width := lipgloss.Width(content.String()) - 2
-	if width < 1 {
-		width = 1 // this is too low
-	}
-
-	menuContent := borderStyle.Width(width).Render(content.String())
+	menuContent := borderStyle.Width(m.Width).Render(content.String())
 
 	return menuContent
 }

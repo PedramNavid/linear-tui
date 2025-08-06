@@ -183,7 +183,7 @@ func (m *mainModel) View() string {
 	// leftView := leftBoxStyle.Render(m.left.View())
 	// rightView := rightBoxStyle.Render(m.right.View())
 
-	layoutView := m.Layout.View()
+	layoutView := m.Layout.View(m.width, m.height)
 	return layoutView
 }
 
